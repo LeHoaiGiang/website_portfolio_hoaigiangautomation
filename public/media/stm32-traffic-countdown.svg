@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <!-- Dark Industrial Background -->
+  <rect width="800" height="450" fill="#0a0f1d"/>
+
+  <!-- Circuit Grid Overlay -->
+  <g opacity="0.15">
+    <path d="M0 45h800M0 90h800M0 135h800M0 180h800M0 225h800M0 270h800M0 315h800M0 360h800M0 405h800" stroke="#0ea5e9" stroke-width="0.75"/>
+    <path d="M45 0v450M90 0v450M135 0v450M180 0v450M225 0v450M270 0v450M315 0v450M360 0v450M405 0v450M450 0v450M495 0v450M540 0v450M585 0v450M630 0v450M675 0v450M720 0v450M765 0v450" stroke="#0ea5e9" stroke-width="0.75"/>
+  </g>
+
+  <!-- Glowing PCB Traces -->
+  <g opacity="0.4" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round">
+    <path d="M120 160 L180 160 L210 190 L260 190"/>
+    <path d="M120 220 L190 220 L220 205 L260 205"/>
+    <path d="M120 280 L180 280 L210 220 L260 220"/>
+    <path d="M420 180 L470 180 L500 150 L540 150"/>
+    <path d="M420 225 L540 225"/>
+    <path d="M420 270 L470 270 L500 300 L540 300"/>
+  </g>
+
+  <!-- Main Controller Board Outline -->
+  <rect x="70" y="65" width="660" height="315" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+  <rect x="80" y="75" width="640" height="295" rx="10" fill="#131e33" stroke="#0284c7" stroke-width="1.5" opacity="0.95"/>
+
+  <!-- Mounting Holes -->
+  <circle cx="95" cy="90" r="4.5" fill="#334155" stroke="#64748b" stroke-width="1"/>
+  <circle cx="705" cy="90" r="4.5" fill="#334155" stroke="#64748b" stroke-width="1"/>
+  <circle cx="95" cy="355" r="4.5" fill="#334155" stroke="#64748b" stroke-width="1"/>
+  <circle cx="705" cy="355" r="4.5" fill="#334155" stroke="#64748b" stroke-width="1"/>
+
+  <!-- Left Side: Isolated Input Block (220VAC / 24VDC) -->
+  <rect x="100" y="105" width="130" height="235" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="165" y="128" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em">SIGNAL INPUTS</text>
+  <text x="165" y="142" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="9">220VAC / 24VDC</text>
+
+  <!-- Red Phase Input -->
+  <rect x="112" y="155" width="106" height="42" rx="5" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+  <circle cx="128" cy="176" r="6" fill="#ef4444" filter="drop-shadow(0 0 6px #ef4444)"/>
+  <text x="142" y="174" fill="#f87171" font-family="monospace" font-size="11" font-weight="700">RED</text>
+  <text x="142" y="187" fill="#94a3b8" font-family="monospace" font-size="8">OPTO ISOLATED</text>
+
+  <!-- Yellow Phase Input -->
+  <rect x="112" y="205" width="106" height="42" rx="5" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <circle cx="128" cy="226" r="6" fill="#f59e0b" filter="drop-shadow(0 0 6px #f59e0b)"/>
+  <text x="142" y="224" fill="#fbbf24" font-family="monospace" font-size="11" font-weight="700">YELLOW</text>
+  <text x="142" y="237" fill="#94a3b8" font-family="monospace" font-size="8">OPTO ISOLATED</text>
+
+  <!-- Green Phase Input -->
+  <rect x="112" y="255" width="106" height="42" rx="5" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <circle cx="128" cy="276" r="6" fill="#10b981" filter="drop-shadow(0 0 6px #10b981)"/>
+  <text x="142" y="274" fill="#34d399" font-family="monospace" font-size="11" font-weight="700">GREEN</text>
+  <text x="142" y="287" fill="#94a3b8" font-family="monospace" font-size="8">OPTO ISOLATED</text>
+
+  <!-- Input Filter Note -->
+  <text x="165" y="323" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="8.5">RC Filter + TVS Surge</text>
+
+  <!-- Center: STM32F103 Core MCU -->
+  <rect x="270" y="140" width="140" height="140" rx="8" fill="#090d16" stroke="#0284c7" stroke-width="2"/>
+  <rect x="290" y="160" width="100" height="100" rx="4" fill="#0369a1"/>
+  <text x="340" y="200" text-anchor="middle" fill="#ffffff" font-family="monospace" font-size="15" font-weight="800">STM32F103</text>
+  <text x="340" y="218" text-anchor="middle" fill="#bae6fd" font-family="monospace" font-size="10">ARM Cortex-M3</text>
+  <text x="340" y="234" text-anchor="middle" fill="#7dd3fc" font-family="monospace" font-size="9">72MHz · Hardware Timer</text>
+  <text x="340" y="248" text-anchor="middle" fill="#e0f2fe" font-family="monospace" font-size="8">Auto-Learning Cycle</text>
+
+  <!-- Pin Marks around MCU -->
+  <g fill="#94a3b8">
+    <rect x="260" y="165" width="7" height="3" rx="1"/>
+    <rect x="260" y="180" width="7" height="3" rx="1"/>
+    <rect x="260" y="195" width="7" height="3" rx="1"/>
+    <rect x="260" y="210" width="7" height="3" rx="1"/>
+    <rect x="260" y="225" width="7" height="3" rx="1"/>
+    <rect x="260" y="240" width="7" height="3" rx="1"/>
+
+    <rect x="413" y="165" width="7" height="3" rx="1"/>
+    <rect x="413" y="180" width="7" height="3" rx="1"/>
+    <rect x="413" y="195" width="7" height="3" rx="1"/>
+    <rect x="413" y="210" width="7" height="3" rx="1"/>
+    <rect x="413" y="225" width="7" height="3" rx="1"/>
+    <rect x="413" y="240" width="7" height="3" rx="1"/>
+  </g>
+
+  <!-- DIP Switch / Mode Configuration Section (Bottom Center) -->
+  <rect x="270" y="295" width="140" height="50" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="340" y="311" text-anchor="middle" fill="#cbd5e1" font-family="sans-serif" font-size="8.5" font-weight="700">DIP SWITCH CONFIG</text>
+  <!-- Switch 1: Mode 0 vs 1 -->
+  <rect x="285" y="318" width="48" height="20" rx="3" fill="#0f172a" stroke="#64748b"/>
+  <rect x="310" y="320" width="20" height="16" rx="2" fill="#38bdf8"/>
+  <text x="298" y="331" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="8">0</text>
+  <text x="320" y="331" text-anchor="middle" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">1</text>
+  <!-- Switch 2: Yellow On/Off -->
+  <rect x="345" y="318" width="48" height="20" rx="3" fill="#0f172a" stroke="#64748b"/>
+  <rect x="347" y="320" width="20" height="16" rx="2" fill="#10b981"/>
+  <text x="357" y="331" text-anchor="middle" fill="#0f172a" font-family="monospace" font-size="7.5" font-weight="700">ON</text>
+  <text x="380" y="331" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="7.5">OFF</text>
+
+  <!-- Right Side: 7-Segment Dual Countdown Display Simulation -->
+  <rect x="450" y="105" width="245" height="235" rx="8" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+  <text x="572" y="128" text-anchor="middle" fill="#94a3b8" font-family="sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em">7-SEGMENT COUNTDOWN OUTPUT</text>
+
+  <!-- LED Display Bezel -->
+  <rect x="468" y="142" width="208" height="150" rx="8" fill="#000000" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- 7-Segment Digit 1 (Tens: '2') -->
+  <g fill="#22c55e" filter="drop-shadow(0 0 10px rgba(34, 197, 94, 0.75))">
+    <!-- segment a -->
+    <rect x="496" y="162" width="42" height="8" rx="2"/>
+    <!-- segment b -->
+    <rect x="532" y="168" width="8" height="42" rx="2"/>
+    <!-- segment g -->
+    <rect x="496" y="208" width="42" height="8" rx="2"/>
+    <!-- segment e -->
+    <rect x="494" y="214" width="8" height="42" rx="2"/>
+    <!-- segment d -->
+    <rect x="496" y="254" width="42" height="8" rx="2"/>
+  </g>
+
+  <!-- 7-Segment Digit 2 (Units: '8') -->
+  <g fill="#22c55e" filter="drop-shadow(0 0 10px rgba(34, 197, 94, 0.75))">
+    <!-- segment a -->
+    <rect x="580" y="162" width="42" height="8" rx="2"/>
+    <!-- segment f -->
+    <rect x="578" y="168" width="8" height="42" rx="2"/>
+    <!-- segment b -->
+    <rect x="616" y="168" width="8" height="42" rx="2"/>
+    <!-- segment g -->
+    <rect x="580" y="208" width="42" height="8" rx="2"/>
+    <!-- segment e -->
+    <rect x="578" y="214" width="8" height="42" rx="2"/>
+    <!-- segment c -->
+    <rect x="616" y="214" width="8" height="42" rx="2"/>
+    <!-- segment d -->
+    <rect x="580" y="254" width="42" height="8" rx="2"/>
+  </g>
+
+  <!-- Output Driver Chips (74HC595 / ULN2803 High Power) -->
+  <g fill="#cbd5e1" font-family="monospace" font-size="9">
+    <rect x="475" y="304" width="80" height="22" rx="3" fill="#1e293b" stroke="#0ea5e9"/>
+    <text x="515" y="318" text-anchor="middle" fill="#38bdf8">74HC595</text>
+
+    <rect x="580" y="304" width="85" height="22" rx="3" fill="#1e293b" stroke="#10b981"/>
+    <text x="622" y="318" text-anchor="middle" fill="#34d399">ULN/MOSFET</text>
+  </g>
+
+  <!-- Bottom Banner Bar -->
+  <rect x="70" y="392" width="660" height="38" rx="8" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(56, 189, 248, 0.3)"/>
+  <text x="400" y="416" text-anchor="middle" fill="#f8fafc" font-family="sans-serif" font-size="12.5" font-weight="600">
+    STM32F103 Traffic Countdown Controller · 220VAC/24VDC Opto · Selectable 0/1 End Mode
+  </text>
+</svg>
