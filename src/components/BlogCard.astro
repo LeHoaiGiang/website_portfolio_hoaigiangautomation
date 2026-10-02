@@ -1,0 +1,266 @@
+---
+export interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      slug?: string;
+      description: string;
+      cover: string;
+      category: string;
+      tags?: string[];
+      date?: Date;
+      readingTime?: string;
+      author?: string;
+      featured?: boolean;
+    };
+  };
+}
+
+const { post } = Astro.props;
+const { data, id } = post;
+const slug = data.slug || id;
+
+// Format date if available
+const formattedDate = data.date
+  ? new Intl.DateTimeFormat('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(data.date))
+  : null;
+---
+
+<article class="card blog-card" data-category={data.category}>
+  <!-- Card Image Container -->
+  <a href={`/blog/${slug}`} class="blog-cover-link" aria-label={`Đọc bài viết: ${data.title}`}>
+    <div class="blog-cover-wrapper">
+      <img
+        src={data.cover || '/media/placeholder-blog.svg'}
+        alt={`Hình ảnh minh họa: ${data.title}`}
+        loading="lazy"
+        class="blog-cover-img"
+        onerror="this.src='/media/placeholder-blog.svg'"
+      />
+      <div class="blog-cover-overlay">
+        <span class="read-btn">
+          Đọc bài viết
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card Body -->
+  <div class="blog-body">
+    <div class="blog-meta-top">
+      <span class="badge badge-blue">{data.category}</span>
+      {data.readingTime && (
+        <span class="reading-time font-mono">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          {data.readingTime}
+        </span>
+      )}
+      {data.featured && <span class="badge badge-amber">Nổi bật</span>}
+    </div>
+
+    <h3 class="blog-title">
+      <a href={`/blog/${slug}`}>{data.title}</a>
+    </h3>
+
+    <p class="blog-desc">{data.description}</p>
+
+    <!-- Tags List -->
+    {data.tags && data.tags.length > 0 && (
+      <div class="blog-tags-list">
+        {data.tags.slice(0, 3).map((tag) => (
+          <span class="tech-chip">#{tag}</span>
+        ))}
+        {data.tags.length > 3 && (
+          <span class="tech-chip">+{data.tags.length - 3}</span>
+        )}
+      </div>
+    )}
+
+    <!-- Card Footer -->
+    <div class="blog-footer">
+      {formattedDate ? (
+        <span class="blog-date font-mono">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          {formattedDate}
+        </span>
+      ) : (
+        <span class="blog-author font-mono">Bởi {data.author || 'Hoài Giang'}</span>
+      )}
+
+      <a href={`/blog/${slug}`} class="link-read">
+        Xem chi tiết
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .blog-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .blog-cover-link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .blog-cover-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #0b1329;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .blog-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .blog-card:hover .blog-cover-img {
+    transform: scale(1.04);
+  }
+
+  .blog-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 19, 41, 0.45);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--transition-fast);
+  }
+
+  .blog-card:hover .blog-cover-overlay {
+    opacity: 1;
+  }
+
+  .read-btn {
+    background: #ffffff;
+    color: var(--color-navy);
+    padding: 0.45rem 0.95rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .blog-body {
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .blog-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .reading-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+  }
+
+  .blog-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-title a {
+    color: var(--color-navy);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .blog-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .blog-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .blog-date,
+  .blog-author {
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .link-read {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .link-read:hover {
+    color: var(--color-primary-hover);
+    gap: 0.5rem;
+  }
+</style>

@@ -77,8 +77,26 @@ const about = defineCollection({
   }),
 });
 
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    description: z.string(),
+    cover: z.string().default('/media/placeholder-blog.svg'),
+    category: z.string().default('Kinh nghiệm thực chiến'),
+    tags: z.array(z.string()).default([]),
+    date: z.coerce.date().optional(),
+    readingTime: z.string().default('5 phút đọc'),
+    author: z.string().default('Hoài Giang'),
+    featured: z.boolean().default(false),
+    published: z.boolean().default(true),
+  }),
+});
+
 export const collections = {
   projects,
   courses,
   about,
+  blog,
 };

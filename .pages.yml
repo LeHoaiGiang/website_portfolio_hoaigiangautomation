@@ -193,3 +193,65 @@ content:
         label: "Nội dung bài viết giới thiệu (Markdown)"
         type: rich-text
 
+  - name: blog
+    label: "Bài viết & Chia sẻ kinh nghiệm"
+    type: collection
+    path: src/content/blog
+    filename: "{fields.slug}.md"
+    fields:
+      - name: title
+        label: "Tiêu đề bài viết"
+        type: string
+        required: true
+      - name: slug
+        label: "Slug (URL duy nhất, ví dụ: kinh-nghiem-layout-pcb-chong-nhieu-emc)"
+        type: string
+        required: true
+      - name: description
+        label: "Mô tả tóm tắt (SEO & Hiển thị thẻ)"
+        type: string
+        required: true
+      - name: cover
+        label: "Ảnh bìa bài viết"
+        type: image
+        default: "/media/placeholder-blog.svg"
+      - name: category
+        label: "Chuyên mục / Chủ đề"
+        type: select
+        options:
+          values:
+            - "Kinh nghiệm thực chiến"
+            - "Thiết kế PCB"
+            - "Lập trình STM32"
+            - "Hệ thống IoT"
+            - "Tự động hóa PLC"
+            - "FPGA & Verilog"
+            - "Kiến thức chung"
+      - name: tags
+        label: "Thẻ từ khóa (Tags)"
+        type: string
+        list: true
+      - name: date
+        label: "Ngày đăng bài"
+        type: date
+      - name: readingTime
+        label: "Thời gian đọc ước tính (ví dụ: 6 phút đọc)"
+        type: string
+        default: "5 phút đọc"
+      - name: author
+        label: "Tác giả bài viết"
+        type: string
+        default: "Hoài Giang"
+      - name: featured
+        label: "Bài viết nổi bật trên trang chủ"
+        type: boolean
+        default: false
+      - name: published
+        label: "Xuất bản công khai"
+        type: boolean
+        default: true
+      - name: body
+        label: "Nội dung bài viết (Markdown)"
+        type: rich-text
+
+

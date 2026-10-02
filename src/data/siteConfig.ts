@@ -50,6 +50,7 @@ export const siteConfig: SiteConfig = {
     { label: 'Trang chủ', href: '/' },
     { label: 'Về chúng tôi', href: '/about' },
     { label: 'Dự án', href: '/projects' },
+    { label: 'Bài viết', href: '/blog' },
     { label: 'Khóa học', href: '/courses' },
     { label: 'Liên hệ', href: '/contact' },
   ],

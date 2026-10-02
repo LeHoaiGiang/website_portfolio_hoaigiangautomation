@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import BlogFilters from '../../components/BlogFilters.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch only published blog posts
+const posts = await getCollection('blog', ({ data }) => data.published === true);
+
+// Sort by date descending
+const sortedPosts = posts.sort((a, b) => {
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return dateB - dateA;
+});
+
+// Extract unique categories from published posts
+const categories = Array.from(new Set(sortedPosts.map((p) => p.data.category))).sort();
+---
+
+<BaseLayout
+  title="Bài viết & Chia sẻ kỹ thuật"
+  description="Tổng hợp các bài viết chuyên sâu về Embedded Systems, STM32, ESP32, thiết kế bo mạch PCB, chống nhiễu EMC và IoT công nghiệp thực tế."
+>
+  <div class="blog-page-header">
+    <div class="container">
+      <span class="section-tag">Kiến Thức &amp; Kinh Nghiệm</span>
+      <h1 class="page-title">Bài Viết &amp; Kinh Nghiệm Kỹ Thuật</h1>
+      <p class="page-subtitle">
+        Chia sẻ kinh nghiệm thực chiến từ phòng thí nghiệm đến hiện trường nhà máy: kỹ thuật layout PCB chống nhiễu, tối ưu hóa firmware vi điều khiển, kiến trúc hệ điều hành RTOS và truyền thông công nghiệp.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <!-- Category Filter Tabs -->
+      <BlogFilters categories={categories} />
+
+      <!-- Blog Cards Grid -->
+      <div class="grid-3" id="blog-grid">
+        {sortedPosts.map((post) => (
+          <BlogCard post={post} />
+        ))}
+      </div>
+
+      <!-- Empty Filter State -->
+      <div id="blog-empty-filter-state" class="empty-state" style="display: none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <h3>Không tìm thấy bài viết phù hợp</h3>
+        <p>Hiện chưa có bài viết nào thuộc chủ đề này được xuất bản.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-page-header {
+    background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 3.5rem 0 2.5rem;
+    text-align: center;
+  }
+
+  .page-title {
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+</style>

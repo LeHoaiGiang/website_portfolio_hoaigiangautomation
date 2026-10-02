@@ -2,10 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import CourseCard from '../components/CourseCard.astro';
+import BlogCard from '../components/BlogCard.astro';
 import { getCollection } from 'astro:content';
 import { siteConfig } from '../data/siteConfig';
 
-// Fetch published projects and courses
+// Fetch published projects, courses, and blog posts
 const allProjects = await getCollection('projects', ({ data }) => data.published === true);
 const featuredProjects = allProjects
   .filter((p) => p.data.featured)
@@ -23,6 +24,15 @@ const featuredCourses = allCourses
     const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
     return dateB - dateA;
   });
+
+const allPosts = await getCollection('blog', ({ data }) => data.published === true);
+const latestPosts = allPosts
+  .sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return dateB - dateA;
+  })
+  .slice(0, 3);
 
 // Core Technical Domains
 const technicalDomains = [
@@ -247,6 +257,41 @@ const technicalDomains = [
       <div class="section-footer-cta">
         <a href="/courses" class="btn btn-secondary">
           <span>Xem danh sách tất cả các khóa học</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts Section -->
+  <section class="section bg-surface-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Góc chia sẻ kinh nghiệm</span>
+        <h2 class="section-title">Bài Viết &amp; Kiến Thức Kỹ Thuật</h2>
+        <p class="section-desc">
+          Chia sẻ kinh nghiệm thực tế về lập trình nhúng, thiết kế bo mạch PCB, xử lý chống nhiễu EMC và ứng dụng IoT công nghiệp.
+        </p>
+      </div>
+
+      {latestPosts.length > 0 ? (
+        <div class="grid-3">
+          {latestPosts.map((post) => (
+            <BlogCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p>Chưa có bài viết nào được xuất bản.</p>
+        </div>
+      )}
+
+      <div class="section-footer-cta">
+        <a href="/blog" class="btn btn-secondary">
+          <span>Xem tất cả {allPosts.length} bài viết chia sẻ</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>

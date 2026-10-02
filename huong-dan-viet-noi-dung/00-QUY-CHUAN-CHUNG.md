@@ -11,19 +11,20 @@
 2. [**`02-MAU-VIET-KHOA-HOC.md`**](./02-MAU-VIET-KHOA-HOC.md): Mẫu khung sườn (Template) chuẩn để viết đề cương chi tiết khóa học thực hành lab.
 3. [**`03-CHECKLIST-TRUOC-KHI-DANG.md`**](./03-CHECKLIST-TRUOC-KHI-DANG.md): Bảng kiểm tra 8 bước trước khi xuất bản bài viết để không bị lỗi hiển thị.
 4. [**`04-MAU-VIET-GIOI-THIEU.md`**](./04-MAU-VIET-GIOI-THIEU.md): Mẫu chuẩn và hướng dẫn chỉnh sửa trang **Về chúng tôi** (chèn ảnh, số liệu thống kê, năng lực chuyên môn).
+5. [**`05-MAU-VIET-BAI-VIET.md`**](./05-MAU-VIET-BAI-VIET.md): Mẫu khung sườn (Template) chuẩn để viết bài chia sẻ kiến thức, mẹo kỹ thuật và kinh nghiệm thực chiến.
 
 ---
 
 ## 2. Quy chuẩn chung về File và Đường dẫn
 
 ### 2.1. Quy tắc đặt Slug (Đường dẫn bài viết)
-* **Slug là gì?** Là phần đuôi của liên kết trang web. Ví dụ: `https://.../projects/stm32-modbus-industrial-gateway` thì `stm32-modbus-industrial-gateway` là slug.
+* **Slug là gì?** Là phần đuôi của liên kết trang web. Ví dụ: `https://.../blog/kinh-nghiem-layout-pcb-chong-nhieu-emc` thì `kinh-nghiem-layout-pcb-chong-nhieu-emc` là slug.
 * **Quy tắc vàng:**
   * Chỉ dùng **chữ cái thường không dấu** (`a-z`) và số (`0-9`).
   * Các từ cách nhau bằng dấu gạch ngang `-`.
   * Không dùng dấu cách, không dùng ký tự đặc biệt (`_`, `@`, `#`, `/`, `%`).
-  * *Ví dụ đúng:* `mach-nguon-xung-buck-24v`, `esp32-can-bus-logger`.
-  * *Ví dụ sai:* `Mạch Nguồn 24V!`, `esp32_can_bus_logger`.
+  * *Ví dụ đúng:* `mach-nguon-xung-buck-24v`, `toi-uu-freertos-stm32`.
+  * *Ví dụ sai:* `Mạch Nguồn 24V!`, `toi_uu_freertos_stm32`.
 
 ### 2.2. Chuẩn bị hình ảnh tải lên (Ảnh bìa & Ảnh minh họa)
 * **Thư mục lưu ảnh:** Toàn bộ ảnh sẽ được tải vào thư mục `public/media/`. Khi khai báo trong bài viết, đường dẫn bắt đầu bằng: `/media/ten-anh.jpg`.
@@ -56,17 +57,27 @@ Hệ thống bộ lọc tự động phân loại theo các danh mục chuẩn s
   * `PLC và tự động hóa`
   * `Khác`
 
+* **Đối với Bài viết chia sẻ (`category`):**
+  * `Thiết kế PCB`
+  * `Lập trình STM32`
+  * `Hệ thống IoT`
+  * `Kinh nghiệm thực chiến`
+  * `Tự động hóa PLC`
+  * `FPGA & Verilog`
+  * `Kiến thức chung`
+
 ---
 
-## 3. Hai cách đăng bài vào website
+## 3. Các cách đăng bài vào website
 
 ### Cách 1: Đăng qua giao diện web Pages CMS (Dễ nhất - Khuyên dùng)
 1. Mở trang: [https://pagescms.org](https://pagescms.org) và đăng nhập bằng GitHub.
-2. Chọn collection **Dự án kỹ thuật** hoặc **Khóa học**.
+2. Chọn collection tương ứng: **Dự án kỹ thuật**, **Khóa học**, hoặc **Bài viết & Chia sẻ kinh nghiệm**.
 3. Điền vào các ô theo biểu mẫu có sẵn, tải ảnh trực tiếp từ máy tính lên.
 4. Bấm **Save**. Hệ thống sẽ tự động build và cập nhật website.
 
 ### Cách 2: Tạo trực tiếp file `.md` trong mã nguồn
 1. Dự án: Lưu file mới tại thư mục `src/content/projects/ten-slug.md`.
 2. Khóa học: Lưu file mới tại thư mục `src/content/courses/ten-slug.md`.
-3. Copy mẫu từ tài liệu `01-MAU-VIET-DU-AN.md` hoặc `02-MAU-VIET-KHOA-HOC.md` vào và chỉnh sửa.
+3. Bài viết: Lưu file mới tại thư mục `src/content/blog/ten-slug.md`.
+4. Copy mẫu từ tài liệu tương ứng (`01`, `02`, hoặc `05`) vào và chỉnh sửa.

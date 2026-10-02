@@ -1,0 +1,362 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { siteConfig } from '../../data/siteConfig';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.published === true);
+  return posts.map((post) => ({
+    params: { slug: post.data.slug || post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+
+// Format date
+const formattedDate = data.date
+  ? new Intl.DateTimeFormat('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(data.date))
+  : null;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.cover}
+  type="article"
+>
+  <article class="blog-detail-page">
+    <!-- Top Back Bar -->
+    <div class="blog-header-bar">
+      <div class="container">
+        <a href="/blog" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Quay lại danh sách bài viết
+        </a>
+      </div>
+    </div>
+
+    <!-- Article Header -->
+    <header class="detail-header section">
+      <div class="container article-container">
+        <div class="header-meta">
+          <span class="badge badge-blue">{data.category}</span>
+          {formattedDate && (
+            <span class="meta-item font-mono">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              {formattedDate}
+            </span>
+          )}
+          {data.readingTime && (
+            <span class="meta-item font-mono">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              {data.readingTime}
+            </span>
+          )}
+          {data.featured && <span class="badge badge-amber">Bài viết nổi bật</span>}
+        </div>
+
+        <h1 class="detail-title">{data.title}</h1>
+        <p class="detail-lead">{data.description}</p>
+
+        <!-- Author Byline -->
+        <div class="author-byline">
+          <img
+            src="/media/author-avatar.svg"
+            alt={data.author || 'Hoài Giang'}
+            class="byline-avatar"
+          />
+          <div class="byline-info">
+            <span class="byline-name">{data.author || siteConfig.authorName}</span>
+            <span class="byline-role">{siteConfig.authorTitle}</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        {data.tags && data.tags.length > 0 && (
+          <div class="detail-tags">
+            {data.tags.map((tag) => (
+              <span class="tech-chip">#{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <!-- Cover Image -->
+    <div class="container article-container">
+      <div class="detail-cover-card">
+        <img
+          src={data.cover || '/media/placeholder-blog.svg'}
+          alt={`Sơ đồ / Ảnh minh họa: ${data.title}`}
+          class="detail-cover-img"
+          onerror="this.src='/media/placeholder-blog.svg'"
+        />
+      </div>
+    </div>
+
+    <!-- Article Content -->
+    <section class="section article-body-section">
+      <div class="container article-container">
+        <div class="prose">
+          <Content />
+        </div>
+
+        <!-- Author Bio Box -->
+        <div class="post-author-box">
+          <div class="post-author-avatar-wrap">
+            <img
+              src="/media/author-avatar.svg"
+              alt={siteConfig.authorName}
+              class="post-author-avatar"
+            />
+          </div>
+          <div class="post-author-content">
+            <span class="badge badge-blue">Tác giả bài viết</span>
+            <h3 class="post-author-name">{siteConfig.authorName} <span class="author-alias">({siteConfig.brandSubname})</span></h3>
+            <p class="post-author-bio">{siteConfig.authorBio}</p>
+            <div class="post-author-links">
+              <a href={siteConfig.socials.youtube} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                Kênh YouTube chia sẻ
+              </a>
+              <a href="/contact" class="btn btn-primary btn-sm">
+                Liên hệ trao đổi
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="detail-bottom-nav">
+          <a href="/blog" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Quay lại danh mục bài viết
+          </a>
+          <a href="/contact" class="btn btn-primary">
+            Đặt câu hỏi hoặc thảo luận
+          </a>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-header-bar {
+    background-color: var(--bg-surface-alt);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.85rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .article-container {
+    max-width: 820px;
+  }
+
+  .detail-header {
+    padding-bottom: 2rem;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    font-size: 0.82rem;
+    color: var(--text-subtle);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .detail-title {
+    margin-bottom: 1rem;
+    font-size: clamp(1.85rem, 3.8vw, 2.75rem);
+    line-height: 1.28;
+    color: var(--color-navy);
+  }
+
+  .detail-lead {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .author-byline {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .byline-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--border-strong);
+    background: #0f172a;
+  }
+
+  .byline-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .byline-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-navy);
+  }
+
+  .byline-role {
+    font-size: 0.78rem;
+    color: var(--text-subtle);
+  }
+
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .detail-cover-card {
+    background-color: #0b1329;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-md);
+  }
+
+  .detail-cover-img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    background-color: #0b1329;
+  }
+
+  .article-body-section {
+    padding-top: 2.5rem;
+  }
+
+  /* Author Box at Bottom */
+  .post-author-box {
+    margin-top: 4rem;
+    padding: 2rem;
+    background-color: var(--bg-surface-alt);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 640px) {
+    .post-author-box {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+  }
+
+  .post-author-avatar-wrap {
+    flex-shrink: 0;
+  }
+
+  .post-author-avatar {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    background: #0f172a;
+  }
+
+  .post-author-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .post-author-name {
+    font-size: 1.15rem;
+    color: var(--color-navy);
+    font-weight: 700;
+    margin: 0.2rem 0;
+  }
+
+  .author-alias {
+    font-size: 0.85rem;
+    font-weight: normal;
+    color: var(--text-subtle);
+  }
+
+  .post-author-bio {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-author-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    .post-author-links {
+      justify-content: center;
+    }
+  }
+
+  .detail-bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+  }
+</style>
