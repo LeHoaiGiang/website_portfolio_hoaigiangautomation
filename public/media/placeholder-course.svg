@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#0b1120"/>
+  <!-- Waveform / Training Lab Grid -->
+  <g opacity="0.12">
+    <path d="M0 60h800M0 120h800M0 180h800M0 240h800M0 300h800M0 360h800" stroke="#818cf8" stroke-width="1"/>
+    <path d="M60 0v450M120 0v450M180 0v450M240 0v450M300 0v450M360 0v450M420 0v450M480 0v450M540 0v450M600 0v450M660 0v450M720 0v450" stroke="#818cf8" stroke-width="1"/>
+  </g>
+  <!-- Oscilloscope Sine / Digital Wave -->
+  <path d="M50 225 Q125 125, 200 225 T350 225 T500 225 T650 225 T750 225" stroke="#06b6d4" stroke-width="2.5" fill="none" opacity="0.5"/>
+  <path d="M50 270 h80 v-90 h80 v90 h80 v-90 h80 v90 h80 v-90 h80 v90 h80" stroke="#10b981" stroke-width="2" fill="none" opacity="0.3"/>
+  <!-- Central Training Shield -->
+  <rect x="250" y="115" width="300" height="220" rx="14" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
+  <!-- Icon: Graduation cap & Chip -->
+  <g transform="translate(370, 150)">
+    <path d="M30 10 L5 25 L30 40 L55 25 Z" fill="#0284c7"/>
+    <path d="M15 31 v15 c0 8 15 12 15 12 s15 -4 15 -12 v-15" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <line x1="55" y1="25" x2="55" y2="45" stroke="#38bdf8" stroke-width="2"/>
+  </g>
+  <text x="400" y="240" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="16" font-weight="700">HOÀI GIANG AUTOMATION</text>
+  <text x="400" y="265" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="12" letter-spacing="2">CHƯƠNG TRÌNH ĐÀO TẠO THỰC CHIẾN</text>
+  <text x="400" y="295" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="11">Embedded · IoT · FPGA · PCB · PLC</text>
+  <!-- Watermark badge -->
+  <rect x="200" y="380" width="400" height="32" rx="16" fill="rgba(2, 132, 199, 0.2)" stroke="#0284c7" stroke-width="1"/>
+  <text x="400" y="401" text-anchor="middle" fill="#38bdf8" font-family="sans-serif" font-size="13" font-weight="600">
+    HOÀI GIANG AUTOMATION — CHƯƠNG TRÌNH ĐÀO TẠO THỰC CHIẾN
+  </text>
+</svg>

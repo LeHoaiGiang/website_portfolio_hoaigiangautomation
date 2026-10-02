@@ -1,0 +1,703 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CourseCard from '../components/CourseCard.astro';
+import { getCollection } from 'astro:content';
+import { siteConfig } from '../data/siteConfig';
+
+// Fetch published projects and courses
+const allProjects = await getCollection('projects', ({ data }) => data.published === true);
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return dateB - dateA;
+  });
+
+const allCourses = await getCollection('courses', ({ data }) => data.published === true);
+const featuredCourses = allCourses
+  .filter((c) => c.data.featured)
+  .sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return dateB - dateA;
+  });
+
+// Core Technical Domains
+const technicalDomains = [
+  {
+    title: 'Embedded Systems',
+    chip: 'STM32 / ARM',
+    desc: 'Lập trình firmware C/C++, ngoại vi thanh ghi, FreeRTOS và bus truyền thông công nghiệp CAN-Bus, RS-485.',
+    icon: 'cpu',
+  },
+  {
+    title: 'IoT & Telemetry',
+    chip: 'ESP32 / Cloud',
+    desc: 'Hệ thống thu thập dữ liệu IoT, bảo mật TLS 1.3, giao thức MQTT, HTTP REST, OTA update và Dashboard giám sát.',
+    icon: 'wifi',
+  },
+  {
+    title: 'FPGA & Verilog',
+    chip: 'Cyclone / Artix',
+    desc: 'Thiết kế logic số song song tốc độ cao, điều khiển động cơ FOC, thuật toán SVPWM và giao tiếp bộ nhớ.',
+    icon: 'grid',
+  },
+  {
+    title: 'Thiết Kế Bo Mạch PCB',
+    chip: 'KiCad / Altium',
+    desc: 'Vẽ mạch nguyên lý Schematic, Layout PCB 2-4 lớp, phối hợp trở kháng và tối ưu chuẩn tương thích điện từ EMC/EMI.',
+    icon: 'layers',
+  },
+  {
+    title: 'PLC & Tự Động Hóa',
+    chip: 'Siemens / Modbus',
+    desc: 'Lập trình PLC Siemens S7-1200/1500, biến tần, màn hình HMI và tích hợp mạng truyền thông SCADA công xưởng.',
+    icon: 'settings',
+  },
+  {
+    title: 'Qt / C++ & Tooling',
+    chip: 'Desktop Apps',
+    desc: 'Phần mềm máy tính giám sát thông số phần cứng, phân tích dữ liệu cổng COM/UART và công cụ kiểm thử thiết bị.',
+    icon: 'terminal',
+  },
+];
+---
+
+<BaseLayout
+  title="Trang chủ"
+  description="Hoài Giang Automation — Thiết kế và hiện thực các hệ thống tự động hóa, Embedded Systems, IoT, FPGA, PCB và Khóa học kỹ thuật thực chiến."
+>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <!-- Brand Tagline Badge -->
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          <span class="hero-badge-text">{siteConfig.tagline}</span>
+        </div>
+
+        <h1 class="hero-title">
+          Thiết kế và hiện thực các <span class="gradient-text">hệ thống tự động hóa</span>
+        </h1>
+
+        <p class="hero-description">
+          Chào mừng bạn đến với không gian kỹ thuật của <strong>{siteConfig.brandName}</strong> ({siteConfig.brandSubname}). Nơi chia sẻ các giải pháp chuyên sâu về <strong>Embedded Systems</strong>, <strong>IoT</strong>, <strong>FPGA</strong>, <strong>PCB</strong>, <strong>PLC công nghiệp</strong> và các chương trình đào tạo kỹ thuật thực chiến.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-actions">
+          <a href="/projects" class="btn btn-primary">
+            <span>Xem dự án kỹ thuật</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="/courses" class="btn btn-secondary">
+            <span>Khám phá khóa học</span>
+          </a>
+          <a href="/contact" class="btn btn-outline">
+            <span>Liên hệ trao đổi</span>
+          </a>
+        </div>
+
+        <!-- Tech Quick Stats -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Dự án thực nghiệm Lab</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">6+</span>
+            <span class="stat-label">Lĩnh vực phần cứng &amp; phần mềm</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Hệ thống vận hành bền bỉ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Card -->
+      <div class="hero-visual">
+        <div class="visual-panel">
+          <div class="panel-header">
+            <div class="panel-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="panel-title font-mono">system_status.log</span>
+            <span class="badge badge-emerald">Online</span>
+          </div>
+          <div class="panel-body font-mono">
+            <div class="log-line"><span class="log-prompt">$</span> init_system --brand="Hoài Giang Automation"</div>
+            <div class="log-line success"><span class="log-tag">[OK]</span> STM32 ARM Cortex-M4 initialized @ 168MHz</div>
+            <div class="log-line success"><span class="log-tag">[OK]</span> ESP32-S3 Wi-Fi &amp; MQTT TLS connected</div>
+            <div class="log-line success"><span class="log-tag">[OK]</span> FPGA Cyclone IV FOC motor loop: &lt;1µs</div>
+            <div class="log-line success"><span class="log-tag">[OK]</span> Modbus RS-485 bus: 32 nodes healthy</div>
+            <div class="log-line info"><span class="log-tag">[INFO]</span> Ready for industrial deployment &amp; lab training</div>
+            <div class="log-line blink-line"><span class="log-prompt">&gt;</span> <span class="cursor">_</span></div>
+          </div>
+          <div class="panel-footer">
+            <div class="panel-spec">
+              <span class="spec-name">MCU / SOC:</span>
+              <span class="spec-data font-mono">STM32 / ESP32</span>
+            </div>
+            <div class="panel-spec">
+              <span class="spec-name">BUS:</span>
+              <span class="spec-data font-mono">CAN / RS485</span>
+            </div>
+            <div class="panel-spec">
+              <span class="spec-name">STACK:</span>
+              <span class="spec-data font-mono">FreeRTOS / LwIP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Domains Section -->
+  <section class="section domains-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Năng lực cốt lõi</span>
+        <h2 class="section-title">Lĩnh Vực Chuyên Môn Kỹ Thuật</h2>
+        <p class="section-desc">
+          Kết hợp hài hòa giữa thiết kế phần cứng điện tử chuẩn công nghiệp và kỹ thuật viết firmware/phần mềm tối ưu.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        {technicalDomains.map((domain) => (
+          <div class="card domain-card">
+            <div class="domain-header">
+              <div class="domain-chip font-mono">{domain.chip}</div>
+            </div>
+            <h3 class="domain-title">{domain.title}</h3>
+            <p class="domain-desc">{domain.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section class="section bg-surface-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Sản phẩm thực tế</span>
+        <h2 class="section-title">Dự Án Kỹ Thuật Nổi Bật</h2>
+        <p class="section-desc">
+          Các dự án tiêu biểu được thiết kế, gia công bo mạch và lập trình hoàn thiện với thông số kỹ thuật rõ ràng.
+        </p>
+      </div>
+
+      {featuredProjects.length > 0 ? (
+        <div class="grid-2">
+          {featuredProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p>Chưa có dự án nào được đánh dấu nổi bật.</p>
+        </div>
+      )}
+
+      <div class="section-footer-cta">
+        <a href="/projects" class="btn btn-secondary">
+          <span>Xem tất cả {allProjects.length} dự án kỹ thuật</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Courses Section (STRICTLY NO PRICE) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Đào tạo chuyên sâu</span>
+        <h2 class="section-title">Chương Trình Đào Tạo Nổi Bật</h2>
+        <p class="section-desc">
+          Các chuyên đề bồi dưỡng kỹ năng lập trình nhúng, thiết kế phần cứng và tự động hóa theo lộ trình thực hành bài bản.
+        </p>
+      </div>
+
+      {featuredCourses.length > 0 ? (
+        <div class="grid-2">
+          {featuredCourses.map((course) => (
+            <CourseCard course={course} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p>Chưa có khóa học nào được đánh dấu nổi bật.</p>
+        </div>
+      )}
+
+      <div class="section-footer-cta">
+        <a href="/courses" class="btn btn-secondary">
+          <span>Xem danh sách tất cả các khóa học</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Author Bio / About Section -->
+  <section class="section author-section">
+    <div class="container">
+      <div class="author-card">
+        <div class="author-avatar-wrapper">
+          <img
+            src="/media/author-avatar.svg"
+            alt={siteConfig.authorName}
+            class="author-avatar-img"
+          />
+        </div>
+        <div class="author-info">
+          <span class="badge badge-blue">Người hướng dẫn &amp; Kỹ sư</span>
+          <h2 class="author-name">{siteConfig.authorName} <span class="author-subname">({siteConfig.brandSubname})</span></h2>
+          <p class="author-title font-mono">{siteConfig.authorTitle}</p>
+          <p class="author-bio-text">
+            Với niềm đam mê sâu sắc trong lĩnh vực kỹ thuật phần cứng và hệ thống điều khiển tự động, tôi tập trung vào việc nghiên cứu, hiện thực hóa các mạch điện tử ứng dụng thực tế và truyền tải kinh nghiệm thực chiến từ phòng Lab đến nhà máy cho thế hệ kỹ sư trẻ.
+          </p>
+          <div class="author-highlights">
+            <div class="highlight-item">
+              <span class="highlight-title">Phương châm:</span>
+              <span class="highlight-desc">Học đi đôi với hành — Code chuẩn, mạch sạch, kiểm chứng trên thiết bị thực.</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-title">Kênh chia sẻ:</span>
+              <span class="highlight-desc">YouTube chia sẻ kiến thức nhúng, video thực hành mạch và các bài viết chuyên môn.</span>
+            </div>
+          </div>
+          <div class="author-actions">
+            <a href="/contact" class="btn btn-primary btn-sm">Liên hệ trao đổi trực tiếp</a>
+            <a href={siteConfig.socials.youtube} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+              Kênh YouTube của Thầy
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Call to Action -->
+  <section class="cta-banner-section">
+    <div class="container">
+      <div class="cta-banner">
+        <div class="cta-content">
+          <h2 class="cta-title">Bạn Có Dự Án Cần Hiện Thực Hoặc Muốn Tư Vấn Khóa Học?</h2>
+          <p class="cta-desc">
+            Sẵn sàng hợp tác nghiên cứu phát triển thiết bị phần cứng, tư vấn kiến trúc nhúng hoặc đồng hành trong các chuyên đề đào tạo kỹ thuật.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a href="/contact" class="btn btn-primary">Liên hệ ngay hôm nay</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    padding-top: 4.5rem;
+    padding-bottom: 5rem;
+    background: radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.06) 0%, transparent 40%);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  @media (max-width: 960px) {
+    .hero-container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: #ffffff;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full);
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-accent-emerald);
+    box-shadow: 0 0 8px var(--color-accent-emerald);
+  }
+
+  .hero-badge-text {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .hero-title {
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-description {
+    font-size: 1.075rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-navy);
+    font-family: var(--font-mono);
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-subtle);
+  }
+
+  /* Hero Visual Terminal */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .visual-panel {
+    width: 100%;
+    max-width: 480px;
+    background-color: #0b1120;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: var(--shadow-xl), 0 0 35px rgba(2, 132, 199, 0.15);
+    overflow: hidden;
+  }
+
+  .panel-header {
+    background-color: #0f172a;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .panel-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .panel-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .panel-dots .red { background-color: #ef4444; }
+  .panel-dots .yellow { background-color: #f59e0b; }
+  .panel-dots .green { background-color: #10b981; }
+
+  .panel-title {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+
+  .panel-body {
+    padding: 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .log-line {
+    color: #94a3b8;
+  }
+
+  .log-line.success {
+    color: #e2e8f0;
+  }
+
+  .log-line.info {
+    color: #38bdf8;
+  }
+
+  .log-prompt {
+    color: var(--color-accent-cyan);
+    font-weight: 700;
+    margin-right: 0.35rem;
+  }
+
+  .log-tag {
+    color: var(--color-accent-emerald);
+    font-weight: 600;
+    margin-right: 0.35rem;
+  }
+
+  .cursor {
+    animation: blink 1s step-end infinite;
+    color: var(--color-accent-cyan);
+  }
+
+  @keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .panel-footer {
+    background-color: #0f172a;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .panel-spec {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .spec-name {
+    font-size: 0.68rem;
+    color: #64748b;
+  }
+
+  .spec-data {
+    font-size: 0.75rem;
+    color: #38bdf8;
+    font-weight: 600;
+  }
+
+  /* Domains */
+  .domain-card {
+    padding: 1.5rem;
+    transition: all var(--transition-normal);
+  }
+
+  .domain-header {
+    margin-bottom: 0.85rem;
+  }
+
+  .domain-chip {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .domain-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-navy);
+  }
+
+  .domain-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .section-footer-cta {
+    text-align: center;
+    margin-top: 2.75rem;
+  }
+
+  .bg-surface-alt {
+    background-color: var(--bg-surface-alt);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  /* Author Section */
+  .author-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+  }
+
+  @media (max-width: 768px) {
+    .author-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 1.75rem;
+    }
+  }
+
+  .author-avatar-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .author-avatar-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--color-primary-light);
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+  }
+
+  .author-name {
+    font-size: 1.6rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .author-subname {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .author-title {
+    font-size: 0.88rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .author-bio-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .author-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+
+  .highlight-item {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .highlight-title {
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .highlight-desc {
+    color: var(--text-muted);
+  }
+
+  .author-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .author-actions {
+      justify-content: center;
+    }
+  }
+
+  /* CTA Banner */
+  .cta-banner-section {
+    padding-top: 1rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .cta-banner {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-xl);
+  }
+
+  @media (max-width: 820px) {
+    .cta-banner {
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+  }
+
+  .cta-title {
+    color: #ffffff;
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-desc {
+    color: #94a3b8;
+    font-size: 0.98rem;
+    max-width: 600px;
+  }
+</style>

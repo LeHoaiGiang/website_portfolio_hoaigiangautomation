@@ -1,0 +1,195 @@
+media:
+  input: public/media
+  output: /media
+
+content:
+  - name: projects
+    label: "Dự án kỹ thuật"
+    type: collection
+    path: src/content/projects
+    filename: "{fields.slug}.md"
+    fields:
+      - name: title
+        label: "Tên dự án"
+        type: string
+        required: true
+      - name: slug
+        label: "Slug (URL duy nhất, ví dụ: stm32-modbus-industrial-gateway)"
+        type: string
+        required: true
+      - name: description
+        label: "Mô tả ngắn"
+        type: string
+        required: true
+      - name: cover
+        label: "Ảnh bìa"
+        type: image
+        default: "/media/placeholder-project.svg"
+      - name: category
+        label: "Lĩnh vực chính"
+        type: select
+        options:
+          values:
+            - "IoT"
+            - "STM32"
+            - "ESP32"
+            - "FPGA"
+            - "PCB"
+            - "PLC"
+            - "Qt/C++"
+            - "Tự động hóa"
+            - "Khác"
+      - name: technologies
+        label: "Công nghệ sử dụng"
+        type: string
+        list: true
+      - name: date
+        label: "Ngày thực hiện"
+        type: date
+      - name: featured
+        label: "Dự án nổi bật trên trang chủ"
+        type: boolean
+        default: false
+      - name: published
+        label: "Xuất bản công khai"
+        type: boolean
+        default: true
+      - name: hardware
+        label: "Phần cứng chính"
+        type: string
+      - name: software
+        label: "Phần mềm / Firmware"
+        type: string
+      - name: github
+        label: "Đường dẫn mã nguồn GitHub (nếu có)"
+        type: string
+      - name: demo
+        label: "Đường dẫn Video / Demo (nếu có)"
+        type: string
+      - name: gallery
+        label: "Thư viện ảnh bổ sung"
+        type: image
+        list: true
+      - name: body
+        label: "Nội dung bài viết chi tiết"
+        type: rich-text
+
+  - name: courses
+    label: "Khóa học"
+    type: collection
+    path: src/content/courses
+    filename: "{fields.slug}.md"
+    fields:
+      - name: title
+        label: "Tên khóa học"
+        type: string
+        required: true
+      - name: slug
+        label: "Slug (URL duy nhất, ví dụ: lap-trinh-nhung-stm32-thuc-chien)"
+        type: string
+        required: true
+      - name: description
+        label: "Mô tả ngắn"
+        type: string
+        required: true
+      - name: cover
+        label: "Ảnh bìa"
+        type: image
+        default: "/media/placeholder-course.svg"
+      - name: category
+        label: "Lĩnh vực"
+        type: select
+        options:
+          values:
+            - "Lập trình nhúng"
+            - "STM32"
+            - "ESP32 và IoT"
+            - "FPGA / Verilog"
+            - "PCB và thực hành phần cứng"
+            - "PLC và tự động hóa"
+            - "Khác"
+      - name: level
+        label: "Cấp độ phù hợp"
+        type: select
+        options:
+          values:
+            - "Cơ bản"
+            - "Trung cấp"
+            - "Nâng cao"
+            - "Mọi cấp độ"
+      - name: format
+        label: "Hình thức học"
+        type: string
+        default: "Trực tiếp / Thực hành lab"
+      - name: duration
+        label: "Thời lượng (ví dụ: 8 tuần - 24 buổi)"
+        type: string
+      - name: status
+        label: "Trạng thái khóa học"
+        type: select
+        options:
+          values:
+            - "Đang cập nhật"
+            - "Sắp mở"
+            - "Đang nhận đăng ký"
+            - "Đã kết thúc"
+      - name: featured
+        label: "Khóa học nổi bật trên trang chủ"
+        type: boolean
+        default: false
+      - name: published
+        label: "Xuất bản công khai"
+        type: boolean
+        default: true
+      - name: prerequisites
+        label: "Kiến thức đầu vào"
+        type: string
+      - name: outcomes
+        label: "Kết quả học tập đạt được"
+        type: string
+        list: true
+      - name: hardware
+        label: "Phần cứng cần chuẩn bị"
+        type: string
+        list: true
+      - name: software
+        label: "Phần mềm & Công cụ sử dụng"
+        type: string
+        list: true
+      - name: contactLabel
+        label: "Nhãn nút liên hệ"
+        type: string
+        default: "Liên hệ hỏi khóa học"
+      - name: contactUrl
+        label: "Đường dẫn liên hệ"
+        type: string
+        default: "/contact"
+      - name: date
+        label: "Ngày cập nhật"
+        type: date
+      - name: body
+        label: "Chương trình đào tạo chi tiết"
+        type: rich-text
+
+  - name: about
+    label: "Trang Về chúng tôi"
+    type: file
+    path: src/content/about/index.md
+    fields:
+      - name: title
+        label: "Tiêu đề trang"
+        type: string
+        required: true
+      - name: subtitle
+        label: "Phụ đề giới thiệu"
+        type: string
+      - name: description
+        label: "Mô tả ngắn (SEO)"
+        type: string
+      - name: cover
+        label: "Ảnh bìa giới thiệu"
+        type: image
+      - name: body
+        label: "Nội dung bài viết giới thiệu (Markdown)"
+        type: rich-text
+

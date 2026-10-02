@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hoaigiangautomation.vercel.app/sitemap-index.xml

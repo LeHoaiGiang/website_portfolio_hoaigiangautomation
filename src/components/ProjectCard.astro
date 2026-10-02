@@ -1,0 +1,341 @@
+---
+export interface Props {
+  project: {
+    id: string;
+    data: {
+      title: string;
+      slug?: string;
+      description: string;
+      cover: string;
+      category: string;
+      technologies?: string[];
+      date?: Date;
+      featured?: boolean;
+      published?: boolean;
+      hardware?: string;
+      software?: string;
+      github?: string;
+      demo?: string;
+    };
+  };
+}
+
+const { project } = Astro.props;
+const { data, id } = project;
+const slug = data.slug || id;
+
+// Format date if available
+const formattedDate = data.date
+  ? new Intl.DateTimeFormat('vi-VN', { year: 'numeric', month: '2-digit' }).format(new Date(data.date))
+  : null;
+---
+
+<article class="card project-card" data-category={data.category}>
+  <!-- Card Image Container -->
+  <a href={`/projects/${slug}`} class="project-cover-link" aria-label={`Xem chi tiết dự án: ${data.title}`}>
+    <div class="project-cover-wrapper">
+      <img
+        src={data.cover || '/media/placeholder-project.svg'}
+        alt={`Ảnh minh họa: ${data.title}`}
+        loading="lazy"
+        class="project-cover-img"
+        onerror="this.src='/media/placeholder-project.svg'"
+      />
+      <div class="project-cover-overlay">
+        <span class="view-btn">
+          Xem chi tiết
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card Body -->
+  <div class="project-body">
+    <div class="project-meta-top">
+      <span class="badge badge-blue">{data.category}</span>
+      {formattedDate && <span class="project-date font-mono">{formattedDate}</span>}
+      {data.featured && <span class="badge badge-amber">Nổi bật</span>}
+    </div>
+
+    <h3 class="project-title">
+      <a href={`/projects/${slug}`}>{data.title}</a>
+    </h3>
+
+    <p class="project-desc">{data.description}</p>
+
+    <!-- Technical Hardware / Software Specs -->
+    {(data.hardware || data.software) && (
+      <div class="project-specs">
+        {data.hardware && (
+          <div class="spec-row">
+            <span class="spec-label">HW:</span>
+            <span class="spec-value">{data.hardware}</span>
+          </div>
+        )}
+        {data.software && (
+          <div class="spec-row">
+            <span class="spec-label">SW:</span>
+            <span class="spec-value">{data.software}</span>
+          </div>
+        )}
+      </div>
+    )}
+
+    <!-- Technologies Chips -->
+    {data.technologies && data.technologies.length > 0 && (
+      <div class="project-tech-list">
+        {data.technologies.slice(0, 4).map((tech) => (
+          <span class="tech-chip">{tech}</span>
+        ))}
+        {data.technologies.length > 4 && (
+          <span class="tech-chip">+{data.technologies.length - 4}</span>
+        )}
+      </div>
+    )}
+
+    <!-- Footer Actions -->
+    <div class="project-footer">
+      <a href={`/projects/${slug}`} class="link-detail">
+        Chi tiết kỹ thuật
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+
+      <div class="project-quick-links">
+        {data.github && (
+          <a
+            href={data.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="icon-link"
+            title="Mã nguồn GitHub"
+            aria-label="Mã nguồn GitHub"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+        )}
+        {data.demo && (
+          <a
+            href={data.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="icon-link"
+            title="Video / Demo thực tế"
+            aria-label="Video / Demo thực tế"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .project-cover-link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .project-cover-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #0f172a;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .project-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-card:hover .project-cover-img {
+    transform: scale(1.04);
+  }
+
+  .project-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--transition-fast);
+  }
+
+  .project-card:hover .project-cover-overlay {
+    opacity: 1;
+  }
+
+  .view-btn {
+    background: #ffffff;
+    color: var(--color-navy);
+    padding: 0.45rem 0.95rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-body {
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .project-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .project-date {
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+    margin-left: auto;
+  }
+
+  .project-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-title a {
+    color: var(--color-navy);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .project-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .project-specs {
+    background-color: var(--bg-surface-alt);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.78rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .spec-row {
+    display: flex;
+    gap: 0.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .spec-label {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-primary);
+    min-width: 28px;
+  }
+
+  .spec-value {
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .link-detail {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+  }
+
+  .link-detail:hover {
+    color: var(--color-primary-hover);
+    gap: 0.5rem;
+  }
+
+  .project-quick-links {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    color: var(--text-subtle);
+    background-color: var(--bg-surface-alt);
+    transition: all var(--transition-fast);
+  }
+
+  .icon-link:hover {
+    color: var(--color-navy);
+    background-color: var(--border-subtle);
+  }
+</style>

@@ -1,0 +1,423 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  // Only generate pages for published courses
+  const courses = await getCollection('courses', ({ data }) => data.published === true);
+  return courses.map((course) => ({
+    params: { slug: course.data.slug || course.id },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+const { data } = course;
+const { Content } = await render(course);
+
+// Determine badge color for status
+const getStatusBadgeClass = (status?: string) => {
+  switch (status) {
+    case 'Đang nhận đăng ký':
+      return 'badge-emerald';
+    case 'Sắp mở':
+      return 'badge-amber';
+    case 'Đã kết thúc':
+      return 'badge-dark';
+    case 'Đang cập nhật':
+    default:
+      return 'badge-blue';
+  }
+};
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.cover}
+  type="article"
+>
+  <article class="course-detail-page">
+    <!-- Breadcrumb -->
+    <div class="course-header-bar">
+      <div class="container">
+        <a href="/courses" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Quay lại danh sách khóa học
+        </a>
+      </div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="course-detail-header section">
+      <div class="container">
+        <div class="header-meta">
+          <span class="badge badge-blue">{data.category}</span>
+          {data.status && (
+            <span class={`badge ${getStatusBadgeClass(data.status)}`}>
+              {data.status}
+            </span>
+          )}
+          {data.level && <span class="badge badge-purple">{data.level}</span>}
+          {data.featured && <span class="badge badge-amber">Nổi bật</span>}
+        </div>
+
+        <h1 class="detail-title">{data.title}</h1>
+        <p class="detail-lead">{data.description}</p>
+
+        <!-- Course Quick Logistics Box -->
+        <div class="course-info-box">
+          <div class="info-grid">
+            {data.duration && (
+              <div class="info-item">
+                <span class="info-label font-mono">THỜI LƯỢNG:</span>
+                <span class="info-val">{data.duration}</span>
+              </div>
+            )}
+            {data.format && (
+              <div class="info-item">
+                <span class="info-label font-mono">HÌNH THỨC:</span>
+                <span class="info-val">{data.format}</span>
+              </div>
+            )}
+            {data.level && (
+              <div class="info-item">
+                <span class="info-label font-mono">CẤP ĐỘ:</span>
+                <span class="info-val">{data.level}</span>
+              </div>
+            )}
+            {data.status && (
+              <div class="info-item">
+                <span class="info-label font-mono">TÌNH TRẠNG:</span>
+                <span class="info-val">{data.status}</span>
+              </div>
+            )}
+          </div>
+
+          <!-- Direct Inquire CTA -->
+          <div class="inquire-action">
+            <a href={data.contactUrl || '/contact'} class="btn btn-primary">
+              <span>{data.contactLabel || 'Liên hệ hỏi khóa học'}</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Cover Image -->
+    <div class="container">
+      <div class="course-cover-card">
+        <img
+          src={data.cover || '/media/placeholder-course.svg'}
+          alt={`Ảnh minh họa khóa học: ${data.title}`}
+          class="course-cover-img"
+          onerror="this.src='/media/placeholder-course.svg'"
+        />
+      </div>
+    </div>
+
+    <!-- Course Content & Syllabus -->
+    <section class="section">
+      <div class="container detail-content-container">
+        <!-- Prerequisites & Outcomes Highlights -->
+        {(data.prerequisites || (data.outcomes && data.outcomes.length > 0)) && (
+          <div class="highlights-card">
+            {data.prerequisites && (
+              <div class="highlight-block">
+                <h3 class="highlight-h3">Kiến thức đầu vào cần chuẩn bị</h3>
+                <p>{data.prerequisites}</p>
+              </div>
+            )}
+
+            {data.outcomes && data.outcomes.length > 0 && (
+              <div class="highlight-block">
+                <h3 class="highlight-h3">Kết quả học tập đạt được sau khóa học</h3>
+                <ul class="outcomes-list">
+                  {data.outcomes.map((item) => (
+                    <li>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+
+        <!-- Tools & Equipment -->
+        {((data.hardware && data.hardware.length > 0) || (data.software && data.software.length > 0)) && (
+          <div class="tools-card">
+            <h3>Công cụ &amp; Thiết bị sử dụng trong khóa học</h3>
+            <div class="tools-grid">
+              {data.hardware && data.hardware.length > 0 && (
+                <div class="tool-col">
+                  <span class="tool-category font-mono">PHẦN CỨNG / KIT THỰC HÀNH</span>
+                  <ul>
+                    {data.hardware.map((hw) => <li>{hw}</li>)}
+                  </ul>
+                </div>
+              )}
+              {data.software && data.software.length > 0 && (
+                <div class="tool-col">
+                  <span class="tool-category font-mono">PHẦN MỀM &amp; TOOL PHÁT TRIỂN</span>
+                  <ul>
+                    {data.software.map((sw) => <li>{sw}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <!-- Markdown Body -->
+        <div class="prose syllabus-prose">
+          <Content />
+        </div>
+
+        <!-- Inquire Banner Bottom -->
+        <div class="course-bottom-inquire">
+          <div class="inquire-text">
+            <h3>Bạn quan tâm đến khóa học này?</h3>
+            <p>Liên hệ trực tiếp với Thầy Giang để nhận tư vấn về lộ trình, giáo trình chi tiết và đăng ký lớp học.</p>
+          </div>
+          <div class="inquire-btn-group">
+            <a href={data.contactUrl || '/contact'} class="btn btn-primary">
+              {data.contactLabel || 'Liên hệ hỏi khóa học'}
+            </a>
+            <a href="/courses" class="btn btn-secondary">
+              Xem các khóa học khác
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .course-header-bar {
+    background-color: var(--bg-surface-alt);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.85rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .course-detail-header {
+    padding-bottom: 2rem;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .detail-title {
+    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    line-height: 1.25;
+  }
+
+  .detail-lead {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 840px;
+    margin-bottom: 2rem;
+  }
+
+  .course-info-box {
+    background-color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .info-grid {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .info-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .info-val {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .course-cover-card {
+    background-color: #0f172a;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-md);
+  }
+
+  .course-cover-img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    background-color: #0b1120;
+  }
+
+  .detail-content-container {
+    max-width: 860px;
+  }
+
+  .highlights-card,
+  .tools-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .highlight-block:not(:last-child) {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .highlight-h3,
+  .tools-card h3 {
+    margin-bottom: 0.85rem;
+    font-size: 1.25rem;
+    color: var(--color-navy);
+  }
+
+  .outcomes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .outcomes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .outcomes-list li svg {
+    color: var(--color-accent-emerald);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .tools-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .tool-category {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .tool-col ul {
+    padding-left: 1.25rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .syllabus-prose {
+    margin-top: 2rem;
+  }
+
+  .course-bottom-inquire {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin-top: 3.5rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .inquire-text h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+
+  .inquire-text p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    max-width: 500px;
+  }
+
+  .inquire-btn-group {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+</style>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 450" fill="none">
+  <rect width="1000" height="450" fill="#090d16"/>
+  <!-- Circuit Grid -->
+  <g opacity="0.12">
+    <path d="M0 50h1000M0 100h1000M0 150h1000M0 200h1000M0 250h1000M0 300h1000M0 350h1000M0 400h1000" stroke="#0ea5e9" stroke-width="0.8"/>
+    <path d="M50 0v450M100 0v450M150 0v450M200 0v450M250 0v450M300 0v450M350 0v450M400 0v450M450 0v450M500 0v450M550 0v450M600 0v450M650 0v450M700 0v450M750 0v450M800 0v450M850 0v450M900 0v450M950 0v450" stroke="#0ea5e9" stroke-width="0.8"/>
+  </g>
+  <!-- Main Lab Frame -->
+  <rect x="100" y="70" width="800" height="310" rx="16" fill="#0f172a" stroke="#0284c7" stroke-width="2.5"/>
+  <!-- Tech Lab Graphics: Oscilloscope, PLC DIN Rail, PCB, Server -->
+  <!-- Module 1: PCB & Electronics -->
+  <rect x="140" y="110" width="160" height="150" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <rect x="180" y="135" width="80" height="70" rx="6" fill="#0284c7"/>
+  <circle cx="220" cy="170" r="14" fill="#38bdf8"/>
+  <text x="220" y="240" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="11" font-weight="600">ĐIỆN TỬ &amp; MẠCH IN</text>
+  <!-- Connector line -->
+  <line x1="300" y1="185" x2="340" y2="185" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 4"/>
+  <!-- Module 2: PLC & Automation -->
+  <rect x="340" y="110" width="160" height="150" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="360" y="130" width="120" height="35" rx="4" fill="#0f172a" stroke="#334155"/>
+  <text x="420" y="152" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="10" font-weight="700">PLC SIEMENS / DELTA</text>
+  <!-- Relay indicators -->
+  <circle cx="375" cy="195" r="5" fill="#10b981"/>
+  <circle cx="395" cy="195" r="5" fill="#10b981"/>
+  <circle cx="415" cy="195" r="5" fill="#10b981"/>
+  <circle cx="435" cy="195" r="5" fill="#10b981"/>
+  <text x="420" y="240" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="11" font-weight="600">PLC &amp; TỰ ĐỘNG HÓA</text>
+  <!-- Connector line -->
+  <line x1="500" y1="185" x2="540" y2="185" stroke="#10b981" stroke-width="2" stroke-dasharray="4 4"/>
+  <!-- Module 3: SCADA & Cloud Monitoring -->
+  <rect x="540" y="110" width="160" height="150" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <!-- Screen Gauges -->
+  <rect x="560" y="130" width="120" height="75" rx="4" fill="#0f172a" stroke="#475569"/>
+  <path d="M570 180 Q600 150, 620 170 T670 145" stroke="#06b6d4" stroke-width="2" fill="none"/>
+  <text x="620" y="240" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="11" font-weight="600">SCADA &amp; GIÁM SÁT</text>
+  <!-- Connector line -->
+  <line x1="700" y1="185" x2="740" y2="185" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 4"/>
+  <!-- Module 4: Embedded Systems -->
+  <rect x="740" y="110" width="120" height="150" rx="10" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+  <rect x="765" y="140" width="70" height="60" rx="6" fill="#0f172a" stroke="#c084fc"/>
+  <text x="800" y="175" text-anchor="middle" fill="#c084fc" font-family="monospace" font-size="10" font-weight="700">STM32</text>
+  <text x="800" y="240" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="11" font-weight="600">NHÚNG / IOT</text>
+  <!-- Center Banner Bar -->
+  <rect x="140" y="295" width="720" height="60" rx="8" fill="#1e293b" stroke="rgba(255, 255, 255, 0.08)"/>
+  <text x="500" y="325" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="16" font-weight="700">
+    HOÀI GIANG AUTOMATION — NĂNG LỰC KỸ THUẬT &amp; KINH NGHIỆM THỰC CHIẾN
+  </text>
+  <text x="500" y="344" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="12">
+    Thiết Kế Mạch Điện Tử · Lập Trình PLC · Mạch Điện Điều Khiển · Giám Sát Dữ Liệu
+  </text>
+</svg>

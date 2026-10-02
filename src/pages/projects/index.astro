@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectFilters from '../../components/ProjectFilters.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch only published projects
+const projects = await getCollection('projects', ({ data }) => data.published === true);
+
+// Sort by date descending, projects without date go after
+const sortedProjects = projects.sort((a, b) => {
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return dateB - dateA;
+});
+
+// Extract unique categories from published projects
+const categories = Array.from(new Set(sortedProjects.map((p) => p.data.category))).sort();
+---
+
+<BaseLayout
+  title="Dự án kỹ thuật"
+  description="Danh mục các dự án Embedded Systems, IoT, FPGA, PCB và Tự động hóa công nghiệp thực hiện bởi Hoài Giang Automation."
+>
+  <div class="projects-page-header">
+    <div class="container">
+      <span class="section-tag">Portfolio Kỹ Thuật</span>
+      <h1 class="page-title">Dự Án Kỹ Thuật &amp; Hiện Thực Hóa Phần Cứng</h1>
+      <p class="page-subtitle">
+        Tổng hợp các sản phẩm phần cứng nhúng, gateway công nghiệp, hệ thống IoT và giải pháp tự động hóa được thiết kế, chế tạo mạch và lập trình hoàn thiện.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <!-- Category Filter Tabs -->
+      <ProjectFilters categories={categories} />
+
+      <!-- Projects Grid -->
+      <div class="grid-3" id="projects-grid">
+        {sortedProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+
+      <!-- Empty Filter State -->
+      <div id="project-empty-filter-state" class="empty-state" style="display: none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <h3>Không tìm thấy dự án phù hợp</h3>
+        <p>Hiện chưa có dự án nào thuộc lĩnh vực này được xuất bản công khai.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-page-header {
+    background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 3.5rem 0 2.5rem;
+    text-align: center;
+  }
+
+  .page-title {
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+</style>

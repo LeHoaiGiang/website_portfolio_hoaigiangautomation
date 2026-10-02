@@ -1,0 +1,349 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  // Only generate pages for published projects
+  const projects = await getCollection('projects', ({ data }) => data.published === true);
+  return projects.map((project) => ({
+    params: { slug: project.data.slug || project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+
+// Format date if available
+const formattedDate = data.date
+  ? new Intl.DateTimeFormat('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(data.date))
+  : null;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.cover}
+  type="article"
+>
+  <article class="project-detail-page">
+    <!-- Breadcrumb & Back button -->
+    <div class="project-header-bar">
+      <div class="container">
+        <a href="/projects" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Quay lại danh sách dự án
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Detail Header -->
+    <header class="detail-header section">
+      <div class="container">
+        <div class="header-meta">
+          <span class="badge badge-blue">{data.category}</span>
+          {formattedDate && <span class="header-date font-mono">{formattedDate}</span>}
+          {data.featured && <span class="badge badge-amber">Dự án nổi bật</span>}
+        </div>
+
+        <h1 class="detail-title">{data.title}</h1>
+        <p class="detail-lead">{data.description}</p>
+
+        <!-- Quick Specs Banner -->
+        {(data.hardware || data.software || data.github || data.demo) && (
+          <div class="specs-box">
+            <div class="specs-grid">
+              {data.hardware && (
+                <div class="spec-col">
+                  <span class="spec-heading font-mono">PHẦN CỨNG CHÍNH</span>
+                  <p class="spec-content">{data.hardware}</p>
+                </div>
+              )}
+              {data.software && (
+                <div class="spec-col">
+                  <span class="spec-heading font-mono">PHẦN MỀM &amp; FIRMWARE</span>
+                  <p class="spec-content">{data.software}</p>
+                </div>
+              )}
+            </div>
+
+            <!-- Action Links -->
+            {(data.github || data.demo) && (
+              <div class="specs-actions">
+                {data.github && (
+                  <a href={data.github} target="_blank" rel="noopener noreferrer" class="btn btn-dark btn-sm">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    Mã nguồn GitHub
+                  </a>
+                )}
+                {data.demo && (
+                  <a href={data.demo} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Xem Video Demo
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        <!-- Tech Chips -->
+        {data.technologies && data.technologies.length > 0 && (
+          <div class="detail-tech-stack">
+            <span class="tech-stack-label">Công nghệ ứng dụng:</span>
+            <div class="chips-wrap">
+              {data.technologies.map((tech) => (
+                <span class="tech-chip">{tech}</span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+
+    <!-- Cover Image Section -->
+    <div class="container">
+      <div class="detail-cover-card">
+        <img
+          src={data.cover || '/media/placeholder-project.svg'}
+          alt={`Sơ đồ / Ảnh minh họa: ${data.title}`}
+          class="detail-cover-img"
+          onerror="this.src='/media/placeholder-project.svg'"
+        />
+      </div>
+    </div>
+
+    <!-- Markdown Content Body -->
+    <section class="section">
+      <div class="container detail-content-container">
+        <div class="prose">
+          <Content />
+        </div>
+
+        <!-- Optional Gallery Section -->
+        {data.gallery && data.gallery.length > 0 && (
+          <div class="detail-gallery">
+            <h3>Hình ảnh &amp; Sơ đồ kỹ thuật bổ sung</h3>
+            <div class="grid-2 gallery-grid">
+              {data.gallery.map((imgUrl, idx) => (
+                <div class="gallery-item">
+                  <img
+                    src={imgUrl}
+                    alt={`${data.title} - Ảnh ${idx + 1}`}
+                    loading="lazy"
+                    class="gallery-img"
+                    onerror="this.src='/media/placeholder-project.svg'"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Back to projects bottom bar -->
+        <div class="detail-bottom-nav">
+          <a href="/projects" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Quay lại danh mục dự án
+          </a>
+          <a href="/contact" class="btn btn-primary">
+            Trao đổi về giải pháp này
+          </a>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .project-header-bar {
+    background-color: var(--bg-surface-alt);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.85rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .detail-header {
+    padding-bottom: 2rem;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .header-date {
+    font-size: 0.85rem;
+    color: var(--text-subtle);
+  }
+
+  .detail-title {
+    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    line-height: 1.25;
+  }
+
+  .detail-lead {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 840px;
+    margin-bottom: 2rem;
+  }
+
+  .specs-box {
+    background-color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.75rem;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .specs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .spec-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .spec-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+  }
+
+  .spec-content {
+    font-size: 0.925rem;
+    color: var(--color-navy);
+    line-height: 1.5;
+  }
+
+  .specs-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+  }
+
+  .detail-tech-stack {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-stack-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .chips-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .detail-cover-card {
+    background-color: #0f172a;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-md);
+  }
+
+  .detail-cover-img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    background-color: #0b1120;
+  }
+
+  .detail-content-container {
+    max-width: 860px;
+  }
+
+  .detail-gallery {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .detail-gallery h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-grid {
+    gap: 1.25rem;
+  }
+
+  .gallery-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: #0f172a;
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .detail-bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+  }
+</style>

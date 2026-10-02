@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import CourseFilters from '../../components/CourseFilters.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch published courses
+const courses = await getCollection('courses', ({ data }) => data.published === true);
+
+// Sort by date descending if available
+const sortedCourses = courses.sort((a, b) => {
+  const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return dateB - dateA;
+});
+
+// Extract unique categories
+const categories = Array.from(new Set(sortedCourses.map((c) => c.data.category))).sort();
+---
+
+<BaseLayout
+  title="Khóa học kỹ thuật"
+  description="Chương trình đào tạo thực chiến về Embedded Systems STM32, ESP32 IoT, FPGA Verilog, Thiết kế bo mạch PCB và Tự động hóa tại Hoài Giang Automation."
+>
+  <div class="courses-page-header">
+    <div class="container">
+      <span class="section-tag">Đào Tạo &amp; Chuyển Giao</span>
+      <h1 class="page-title">Chương Trình Đào Tạo Kỹ Thuật Thực Chiến</h1>
+      <p class="page-subtitle">
+        Các khóa học tập trung vào thực hành trực tiếp tại phòng Lab và trên kit phần cứng thực tế, giúp học viên làm chủ kiến thức từ nền tảng đến sản phẩm hoàn chỉnh.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <!-- Course Filters -->
+      <CourseFilters categories={categories} />
+
+      <!-- Courses Grid -->
+      <div class="grid-2" id="courses-grid">
+        {sortedCourses.map((course) => (
+          <CourseCard course={course} />
+        ))}
+      </div>
+
+      <!-- Empty State -->
+      <div id="course-empty-filter-state" class="empty-state" style="display: none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <h3>Chưa có khóa học nào thuộc chủ đề này</h3>
+        <p>Các chuyên đề mới đang được Thầy Giang cập nhật nội dung đào tạo.</p>
+      </div>
+
+      <!-- Educational Guidance Notice (NO PRICE / NO PAYMENT) -->
+      <div class="tech-callout">
+        <strong>Thông tin đào tạo:</strong> Các khóa học được tổ chức theo hình thức kèm cặp chuyên sâu hoặc theo nhóm nhỏ thực hành lab. Để biết thêm thông tin lịch học dự kiến hoặc trao đổi nhu cầu đào tạo doanh nghiệp, vui lòng nhấn nút <em>Liên hệ hỏi khóa học</em>.
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .courses-page-header {
+    background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 3.5rem 0 2.5rem;
+    text-align: center;
+  }
+
+  .page-title {
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+</style>

@@ -1,0 +1,355 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../data/siteConfig';
+---
+
+<BaseLayout
+  title="Liên hệ"
+  description="Liên hệ trao đổi về dự án kỹ thuật tự động hóa, thiết kế phần cứng nhúng hoặc tư vấn thông tin khóa học với Hoài Giang Automation."
+>
+  <div class="contact-page-header">
+    <div class="container">
+      <span class="section-tag">Kết nối &amp; Hợp tác</span>
+      <h1 class="page-title">Thông Tin Liên Hệ &amp; Tư Vấn</h1>
+      <p class="page-subtitle">
+        Sẵn sàng trao đổi về các giải pháp phát triển phần cứng nhúng, hiện thực hóa dự án tự động hóa hoặc tư vấn lộ trình học tập chuyên sâu.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container contact-container">
+      <!-- 2 Major Tracks: Projects & Courses -->
+      <div class="contact-grid">
+        <!-- Card 1: Kỹ thuật & Dự án -->
+        <div class="card contact-card">
+          <div class="card-icon-header">
+            <div class="contact-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <div>
+              <span class="badge badge-blue">Dành cho đối tác &amp; Khách hàng</span>
+              <h3 class="contact-card-title">Trao Đổi Về Dự Án Kỹ Thuật</h3>
+            </div>
+          </div>
+
+          <p class="contact-card-desc">
+            Bạn có nhu cầu thiết kế mạch nhúng STM32/ESP32, triển khai hệ thống gateway công nghiệp, lập trình logic FPGA hoặc nâng cấp hệ thống PLC:
+          </p>
+
+          <ul class="contact-purpose-list">
+            <li>Nghiên cứu &amp; Phát triển thiết bị mẫu (Proof-of-Concept / Prototype).</li>
+            <li>Thiết kế mạch in PCB 2-4 lớp chuẩn công nghiệp, chống nhiễu EMC/EMI.</li>
+            <li>Lập trình firmware nhúng, RTOS và kết nối IoT Cloud thời gian thực.</li>
+          </ul>
+
+          <div class="contact-btn-box">
+            <a
+              href={`mailto:${siteConfig.contact.email}?subject=[Trao đổi dự án] Tư vấn giải pháp kỹ thuật - ${siteConfig.brandName}`}
+              class="btn btn-primary btn-block"
+            >
+              Gửi Email Trao Đổi Dự Án
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Khóa học & Đào tạo -->
+        <div class="card contact-card">
+          <div class="card-icon-header">
+            <div class="contact-icon-box accent">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <span class="badge badge-emerald">Dành cho học viên &amp; Kỹ sư</span>
+              <h3 class="contact-card-title">Tư Vấn &amp; Hỏi Khóa Học</h3>
+            </div>
+          </div>
+
+          <p class="contact-card-desc">
+            Bạn muốn tìm hiểu thêm về lộ trình đào tạo, đăng ký nhận lịch mở lớp thực hành lab hoặc cần tư vấn kiến thức đầu vào phù hợp với năng lực:
+          </p>
+
+          <ul class="contact-purpose-list">
+            <li>Tư vấn lộ trình học lập trình vi điều khiển STM32 từ cơ bản đến RTOS.</li>
+            <li>Hỏi thông tin chuyên đề IoT công nghiệp với ESP32 &amp; FreeRTOS.</li>
+            <li>Đăng ký lớp thiết kế bo mạch PCB &amp; phần cứng nhúng thực chiến.</li>
+          </ul>
+
+          <div class="contact-btn-box">
+            <a
+              href={`mailto:${siteConfig.contact.email}?subject=[Hỏi khóa học] Tư vấn chương trình đào tạo - ${siteConfig.brandName}`}
+              class="btn btn-primary btn-block"
+            >
+              Gửi Email Hỏi Về Khóa Học
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Centralized Contact Information Table / List -->
+      <div class="channels-panel">
+        <h3 class="channels-title">Các Kênh Liên Hệ Trực Tiếp</h3>
+        <div class="channels-grid">
+          <div class="channel-card">
+            <div class="channel-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <span class="channel-name">Hộp thư điện tử (Email)</span>
+              <a href={`mailto:${siteConfig.contact.email}`} class="channel-link font-mono">
+                {siteConfig.contact.email}
+              </a>
+              <span class="channel-hint">Kênh chính thức tiếp nhận thông tin dự án &amp; khóa học</span>
+            </div>
+          </div>
+
+          <div class="channel-card">
+            <div class="channel-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <span class="channel-name">Điện thoại / Zalo</span>
+              <a href={siteConfig.socials.zalo} target="_blank" rel="noopener noreferrer" class="channel-link font-mono">
+                {siteConfig.contact.phone}
+              </a>
+              <span class="channel-hint">Gọi điện hoặc nhắn tin trực tiếp qua Zalo</span>
+            </div>
+          </div>
+
+          <div class="channel-card">
+            <div class="channel-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <span class="channel-name">Địa chỉ làm việc</span>
+              <span class="channel-link">{siteConfig.contact.location}</span>
+              <span class="channel-hint">Giờ làm việc: {siteConfig.contact.workingHours}</span>
+            </div>
+          </div>
+
+          <div class="channel-card">
+            <div class="channel-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <span class="channel-name">Mạng xã hội &amp; Video</span>
+              <div class="social-tags">
+                <a href={siteConfig.socials.youtube} target="_blank" rel="noopener noreferrer" class="tech-chip">YouTube</a>
+                <a href={siteConfig.socials.tiktok} target="_blank" rel="noopener noreferrer" class="tech-chip">TikTok</a>
+                <a href={siteConfig.socials.github} target="_blank" rel="noopener noreferrer" class="tech-chip">GitHub</a>
+              </div>
+              <span class="channel-hint">Theo dõi các video bài giảng &amp; mạch thực tế</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-page-header {
+    background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 3.5rem 0 2.5rem;
+    text-align: center;
+  }
+
+  .page-title {
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+
+  .contact-container {
+    max-width: 1000px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact-card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-icon-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .contact-icon-box.accent {
+    background-color: #d1fae5;
+    color: #059669;
+  }
+
+  .contact-card-title {
+    font-size: 1.25rem;
+    color: var(--color-navy);
+    margin-top: 0.25rem;
+  }
+
+  .contact-card-desc {
+    font-size: 0.925rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+
+  .contact-purpose-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-purpose-list li {
+    font-size: 0.88rem;
+    color: var(--text-main);
+    position: relative;
+    padding-left: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .contact-purpose-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0.25rem;
+    color: var(--color-primary);
+    font-weight: bold;
+  }
+
+  .contact-btn-box {
+    margin-top: auto;
+  }
+
+  .channels-panel {
+    background-color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .channels-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--color-navy);
+  }
+
+  .channels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .channels-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .channel-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--bg-surface-alt);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .channel-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background-color: #ffffff;
+    color: var(--color-primary);
+    border: 1px solid var(--border-strong);
+    flex-shrink: 0;
+  }
+
+  .channel-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .channel-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .channel-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .channel-hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .social-tags {
+    display: flex;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+  }
+</style>

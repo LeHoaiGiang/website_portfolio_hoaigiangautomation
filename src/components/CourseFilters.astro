@@ -1,0 +1,139 @@
+---
+export interface Props {
+  categories: string[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="filter-wrapper" id="course-filters-container">
+  <div class="filter-list" role="tablist" aria-label="Lọc theo lĩnh vực khóa học">
+    <button
+      type="button"
+      class="filter-btn active"
+      data-filter="all"
+      role="tab"
+      aria-selected="true"
+    >
+      <span class="filter-dot"></span>
+      Tất cả chủ đề
+    </button>
+    {categories.map((cat) => (
+      <button
+        type="button"
+        class="filter-btn"
+        data-filter={cat}
+        role="tab"
+        aria-selected="false"
+      >
+        <span class="filter-dot"></span>
+        {cat}
+      </button>
+    ))}
+  </div>
+</div>
+
+<style>
+  .filter-wrapper {
+    margin-bottom: 2.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .filter-list {
+      flex-wrap: nowrap;
+      min-width: max-content;
+    }
+  }
+
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    color: var(--text-muted);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .filter-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--text-subtle);
+    transition: background-color var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    color: var(--color-navy);
+    border-color: var(--color-primary);
+    background-color: var(--bg-surface-alt);
+  }
+
+  .filter-btn.active {
+    background-color: var(--color-navy);
+    color: #ffffff;
+    border-color: var(--color-navy);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+  }
+
+  .filter-btn.active .filter-dot {
+    background-color: var(--color-accent-cyan);
+    box-shadow: 0 0 6px var(--color-accent-cyan);
+  }
+</style>
+
+<script>
+  function setupCourseFilters() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('#course-filters-container .filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.course-card');
+    const emptyState = document.getElementById('course-empty-filter-state');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter') || 'all';
+
+        buttons.forEach((b) => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        let visibleCount = 0;
+        cards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (emptyState) {
+          emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupCourseFilters);
+  setupCourseFilters();
+</script>
