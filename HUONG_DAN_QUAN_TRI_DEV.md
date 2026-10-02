@@ -141,30 +141,48 @@ Mở PowerShell tại thư mục dự án:
 
 ---
 
-## 5. Quy trình đưa website lên Vercel (Miễn phí 100% & Tự động Deploy)
+## 5. Quy trình đưa website lên Internet (Miễn phí 100% & Tự động Deploy)
 
-### Bước 1: Lưu code và đẩy lên GitHub
-Chạy các lệnh sau trong PowerShell:
-```powershell
-git add .
-git commit -m "feat: cap nhat thong tin lien he va hoan thien website"
-git push origin main
-```
+### 5.1. Triển khai lên Cloudflare Pages (Khuyên dùng - Nhanh & Ổn định nhất)
 
-### Bước 2: Kết nối với Vercel
+Cloudflare Pages là nền tảng máy chủ tĩnh toàn cầu miễn phí 100%, không giới hạn băng thông, tự động cấp SSL HTTPS và tích hợp hoàn hảo với GitHub.
+
+#### Các bước triển khai:
+1. **Đăng nhập Cloudflare:** Truy cập [dash.cloudflare.com](https://dash.cloudflare.com) và đăng nhập tài khoản Cloudflare của Thầy.
+2. **Tạo dự án Pages mới:**
+   * Ở thanh menu bên trái, chọn **Compute (Workers & Pages)** > chọn thẻ **Pages**.
+   * Bấm nút **Connect to Git** (Kết nối với Git).
+   * Chọn tài khoản **GitHub** (`LeHoaiGiang`) và chọn repository `website_portfolio_hoaigiangautomation`.
+3. **Cấu hình thông số bản dựng (Build Settings):**
+   * **Project name:** `hoaigiangautomation` (hoặc để mặc định)
+   * **Production branch:** `main`
+   * **Framework preset:** Chọn `Astro`
+   * **Build command:** `npm run build`
+   * **Build output directory:** `dist`
+4. **Cấu hình biến môi trường (Environment variables - Rất quan trọng):**
+   * Bấm vào mục **Environment variables (advanced)** > Bấm **Add variable**:
+     * **Variable name:** `NODE_VERSION`
+     * **Value:** `20` (hoặc `22`)
+   *(Việc này bảo đảm Cloudflare dùng phiên bản Node.js mới nhất để biên dịch Astro v7 trơn tru).*
+5. **Bấm Save and Deploy:**
+   * Sau khoảng 40 giây, website sẽ chính thức online với tên miền dạng:
+     `https://hoaigiangautomation.pages.dev`
+6. **Gắn tên miền riêng (Custom Domain - Nếu có):**
+   * Trong trang dự án Cloudflare Pages, chọn thẻ **Custom domains** > bấm **Set up a custom domain**.
+   * Nhập tên miền của Thầy (ví dụ: `hoaigiangautomation.com`). Nếu tên miền đã trỏ DNS về Cloudflare, hệ thống sẽ tự động kích hoạt trong 1 click.
+
+#### Hoạt động tự động khi đăng bài qua Pages CMS:
+* Mỗi khi Thầy thêm dự án, viết bài chia sẻ kinh nghiệm mới qua **Pages CMS**, Pages CMS sẽ gửi một commit lên GitHub.
+* **Cloudflare Pages** sẽ tự động bắt lấy commit đó, biên dịch lại website và cập nhật toàn cầu trong 30 giây mà Thầy không cần thao tác thêm bất kỳ lệnh nào.
+
+---
+
+### 5.2. Triển khai dự phòng lên Vercel
+
 1. Đăng nhập [vercel.com](https://vercel.com) bằng tài khoản GitHub `LeHoaiGiang`.
-2. Bấm **Add New...** > chọn **Project**.
-3. Tìm và chọn repository `website_portfolio_hoaigiangautomation`.
-4. Vercel tự động nhận diện framework là **Astro**:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-5. Bấm **Deploy**.
-6. Sau khoảng 45 giây, website của Thầy sẽ chính thức online với tên miền dạng:
-   `https://website-portfolio-hoaigiangautomation.vercel.app` (hoặc tên miền tùy chọn của Vercel).
-
-### Bước 3: Hoạt động tự động khi dùng Pages CMS
-* Mỗi khi Thầy đăng bài mới qua **Pages CMS**, hệ thống tự động gửi một commit vào GitHub.
-* **Vercel** sẽ tự động phát hiện commit đó và build lại website trong 30 giây mà Thầy không cần làm thêm bất kỳ thao tác kỹ thuật nào.
+2. Bấm **Add New...** > chọn **Project** > Chọn repository `website_portfolio_hoaigiangautomation`.
+3. Vercel tự nhận diện **Astro** (`npm run build`, output: `dist`).
+4. Bấm **Deploy**. Website sẽ online tại `https://website-portfolio-hoaigiangautomation.vercel.app`.
 
 ---
 
