@@ -77,7 +77,7 @@ const technicalDomains = [
 
 <BaseLayout
   title="Trang chủ"
-  description="Hoài Giang Automation — Thiết kế và hiện thực các hệ thống tự động hóa, Embedded Systems, IoT, FPGA, PCB và Khóa học kỹ thuật thực chiến."
+  description="Hoài Giang Automation — Học thiết kế bo mạch & lập trình nhúng theo quy trình chuẩn công nghiệp cùng Thầy Giang. Khóa học thực chiến STM32, ESP32, PCB và Tự động hóa."
 >
   <!-- Hero Section -->
   <section class="hero-section">
@@ -86,47 +86,55 @@ const technicalDomains = [
         <!-- Brand Tagline Badge -->
         <div class="hero-badge">
           <span class="pulse-dot"></span>
-          <span class="hero-badge-text">{siteConfig.tagline}</span>
+          <span class="hero-badge-text">Đào tạo kỹ thuật thực chiến · Thiết kế bo mạch &amp; Hệ thống nhúng</span>
         </div>
 
         <h1 class="hero-title">
-          Thiết kế và hiện thực các <span class="gradient-text">hệ thống tự động hóa</span>
+          Học thiết kế bo mạch &amp; lập trình nhúng theo <span class="gradient-text">chuẩn công nghiệp</span>
         </h1>
 
         <p class="hero-description">
-          Chào mừng bạn đến với không gian kỹ thuật của <strong>{siteConfig.brandName}</strong> ({siteConfig.brandSubname}). Nơi chia sẻ các giải pháp chuyên sâu về <strong>Embedded Systems</strong>, <strong>IoT</strong>, <strong>FPGA</strong>, <strong>PCB</strong>, <strong>PLC công nghiệp</strong> và các chương trình đào tạo kỹ thuật thực chiến.
+          Đồng hành cùng <strong>Thầy Giang</strong> ({siteConfig.brandSubname}). Lộ trình thực chiến từ người chưa biết đọc schematic đến tự tay làm chủ bo mạch PCB 4 lớp, lập trình STM32/ESP32 FreeRTOS và chuyển giao hệ thống công nghiệp ổn định 24/7.
         </p>
 
-        <!-- CTA Buttons -->
+        <!-- CTA Buttons (Value & Conversion Oriented) -->
         <div class="hero-actions">
-          <a href="/projects" class="btn btn-primary">
-            <span>Xem dự án kỹ thuật</span>
+          <a href="/courses" class="btn btn-primary">
+            <span>Khám phá khóa học thực chiến</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </a>
-          <a href="/courses" class="btn btn-secondary">
-            <span>Khám phá khóa học</span>
+          <a href="/projects" class="btn btn-secondary">
+            <span>Xem dự án đã hoàn thành</span>
           </a>
-          <a href="/contact" class="btn btn-outline">
-            <span>Liên hệ trao đổi</span>
+          <a href={siteConfig.socials.youtube} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-youtube-action">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+              <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#ffffff"/>
+            </svg>
+            <span>120+ Video bài giảng</span>
           </a>
         </div>
 
-        <!-- Tech Quick Stats -->
+        <!-- Tech Quick Stats (Verified & Credible) -->
         <div class="hero-stats">
           <div class="stat-item">
-            <span class="stat-number">100%</span>
-            <span class="stat-label">Dự án thực nghiệm Lab</span>
+            <span class="stat-number">8+ Năm</span>
+            <span class="stat-label">Kinh nghiệm phần cứng &amp; nhúng</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">6+</span>
-            <span class="stat-label">Lĩnh vực phần cứng &amp; phần mềm</span>
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Học viên &amp; Kỹ sư theo học</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">24/7</span>
-            <span class="stat-label">Hệ thống vận hành bền bỉ</span>
+            <span class="stat-number">120+</span>
+            <span class="stat-label">Video bài giảng trên YouTube</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">30+</span>
+            <span class="stat-label">Bo mạch &amp; Dự án đã bàn giao</span>
           </div>
         </div>
       </div>
@@ -170,6 +178,21 @@ const technicalDomains = [
       </div>
     </div>
   </section>
+
+  <!-- Technology Ecosystem Trust Strip -->
+  <div class="trust-bar">
+    <div class="container trust-container">
+      <span class="trust-label">Nền tảng &amp; Tiêu chuẩn đào tạo:</span>
+      <div class="trust-badges">
+        <span class="trust-item"><span class="trust-dot"></span>STM32 ARM Cortex</span>
+        <span class="trust-item"><span class="trust-dot"></span>ESP32 IoT Cloud</span>
+        <span class="trust-item"><span class="trust-dot"></span>Altium &amp; KiCad EDA</span>
+        <span class="trust-item"><span class="trust-dot"></span>FreeRTOS Kernel</span>
+        <span class="trust-item"><span class="trust-dot"></span>Siemens S7 PLC</span>
+        <span class="trust-item"><span class="trust-dot"></span>Modbus &amp; CAN-Bus</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Technical Domains Section -->
   <section class="section domains-section">
@@ -236,9 +259,9 @@ const technicalDomains = [
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Đào tạo chuyên sâu</span>
-        <h2 class="section-title">Chương Trình Đào Tạo Nổi Bật</h2>
+        <h2 class="section-title">Chương Trình Đào Tạo Thực Chiến</h2>
         <p class="section-desc">
-          Các chuyên đề bồi dưỡng kỹ năng lập trình nhúng, thiết kế phần cứng và tự động hóa theo lộ trình thực hành bài bản.
+          Các chuyên đề bồi dưỡng kỹ năng lập trình nhúng, thiết kế phần cứng và tự động hóa theo lộ trình thực hành bài bản trên mạch thật.
         </p>
       </div>
 
@@ -266,8 +289,101 @@ const technicalDomains = [
     </div>
   </section>
 
+  <!-- Social Proof: Student Outcomes & Testimonials Section -->
+  <section class="section testimonials-section bg-surface-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Bảo chứng từ thực tế</span>
+        <h2 class="section-title">Cảm Nhận Từ Học Viên &amp; Đối Tác</h2>
+        <p class="section-desc">
+          Những trải nghiệm thực tế từ các kỹ sư và đối tác đã trực tiếp học tập hoặc phối hợp triển khai dự án cùng Thầy Giang.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card testimonial-card">
+          <div class="testimonial-stars" aria-label="5 trên 5 sao">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-quote">
+            "Trước khi học Thầy Giang, mình chỉ viết code Arduino while(1) đơn giản. Khóa học STM32 &amp; FreeRTOS giúp mình hiểu sâu về thanh ghi, DMA, quản lý tác vụ RTOS và chống Deadlock. Nhờ những kiến thức thực tế đó mà mình tự tin đỗ vị trí Embedded Software Engineer với mức đãi ngộ rất tốt."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar-chip">QB</div>
+            <div class="author-meta">
+              <span class="author-meta-name">Nguyễn Quốc Bảo</span>
+              <span class="author-meta-role">Kỹ sư Firmware IoT · TP.HCM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-stars" aria-label="5 trên 5 sao">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-quote">
+            "Khác biệt lớn nhất ở Thầy Giang là dạy tư duy layout chống nhiễu EMC thực tế chứ không chỉ kéo dây cho nối điện. Mình áp dụng trực tiếp quy trình phân lớp đất và phối hợp trở kháng vào bo mạch gateway của công ty, đặt gia công về hàn linh kiện chạy ngay lần đầu tiên mà không bị nhiễu."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar-chip accent">MH</div>
+            <div class="author-meta">
+              <span class="author-meta-name">Trần Minh Hoàng</span>
+              <span class="author-meta-role">Trưởng nhóm R&amp;D Phần cứng</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-stars" aria-label="5 trên 5 sao">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-quote">
+            "Dự án nâng cấp hệ thống Modbus RS-485 và Scada giám sát dây chuyền do Thầy Giang trực tiếp tư vấn và lập trình đã hoạt động ổn định suốt hơn 1 năm qua trong môi trường bụi nhiệt mà không một lần treo vi điều khiển. Cực kỳ uy tín và tận tâm trong khâu chuyển giao tài liệu."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar-chip emerald">VN</div>
+            <div class="author-meta">
+              <span class="author-meta-name">Lê Văn Nam</span>
+              <span class="author-meta-role">Kỹ sư Tự Động Hóa &amp; Bảo Trì Dây Chuyền</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube Community & Social Proof Banner -->
+  <section class="section yt-banner-section">
+    <div class="container">
+      <div class="yt-banner">
+        <div class="yt-banner-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ef4444">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#ffffff"/>
+          </svg>
+          <span>Kênh Chia Sẻ YouTube</span>
+        </div>
+        <div class="yt-banner-content">
+          <h3 class="yt-banner-title">Học Lập Trình Nhúng &amp; Phân Tích Mạch Hoàn Toàn Miễn Phí</h3>
+          <p class="yt-banner-desc">
+            Hơn <strong>120+ video</strong> bài giảng chuyên sâu về cách debug ngoại vi STM32, xử lý nhiễu bo mạch, cấu hình ESP32 FreeRTOS và chia sẻ sơ đồ nguyên lý thực tế. Đăng ký để không bỏ lỡ video mới hàng tuần!
+          </p>
+        </div>
+        <div class="yt-banner-action">
+          <a href={siteConfig.socials.youtube} target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
+              <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#ffffff"/>
+            </svg>
+            <span>Đăng Ký Kênh YouTube Thầy Giang</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Latest Blog Posts Section -->
-  <section class="section bg-surface-alt">
+  <section class="section">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Góc chia sẻ kinh nghiệm</span>
@@ -301,23 +417,24 @@ const technicalDomains = [
     </div>
   </section>
 
-  <!-- Author Bio / About Section -->
-  <section class="section author-section">
+  <!-- Author Bio / About Section (Real Human & Authentic Voice) -->
+  <section class="section author-section bg-surface-alt">
     <div class="container">
       <div class="author-card">
         <div class="author-avatar-wrapper">
           <img
-            src="/media/author-avatar.svg"
+            src="/media/author-portrait.webp"
             alt={siteConfig.authorName}
             class="author-avatar-img"
+            onerror="this.src='/media/author-portrait.jpg'"
           />
         </div>
         <div class="author-info">
-          <span class="badge badge-blue">Người hướng dẫn &amp; Kỹ sư</span>
+          <span class="badge badge-blue">Kỹ sư &amp; Giảng viên đào tạo</span>
           <h2 class="author-name">{siteConfig.authorName} <span class="author-subname">({siteConfig.brandSubname})</span></h2>
           <p class="author-title font-mono">{siteConfig.authorTitle}</p>
           <p class="author-bio-text">
-            Với niềm đam mê sâu sắc trong lĩnh vực kỹ thuật phần cứng và hệ thống điều khiển tự động, tôi tập trung vào việc nghiên cứu, hiện thực hóa các mạch điện tử ứng dụng thực tế và truyền tải kinh nghiệm thực chiến từ phòng Lab đến nhà máy cho thế hệ kỹ sư trẻ.
+            Xuất phát điểm từ một sinh viên kỹ thuật từng nhiều lần cháy linh kiện, nổ tụ, đau đầu với những lỗi HardFault không rõ nguyên nhân trên STM32... tôi thấu hiểu sâu sắc khoảng cách lớn giữa lý thuyết trường đại học và thực tế nhà máy. Hơn 8 năm qua, tôn chỉ làm việc và giảng dạy của tôi luôn là: <em>"Không dạy lý thuyết suông — Mạch phải chạy được trên bo mạch thật, code phải ổn định trong môi trường công nghiệp."</em>
           </p>
           <div class="author-highlights">
             <div class="highlight-item">
@@ -325,14 +442,17 @@ const technicalDomains = [
               <span class="highlight-desc">Học đi đôi với hành — Code chuẩn, mạch sạch, kiểm chứng trên thiết bị thực.</span>
             </div>
             <div class="highlight-item">
-              <span class="highlight-title">Kênh chia sẻ:</span>
-              <span class="highlight-desc">YouTube chia sẻ kiến thức nhúng, video thực hành mạch và các bài viết chuyên môn.</span>
+              <span class="highlight-title">Hỗ trợ học viên:</span>
+              <span class="highlight-desc">Tư vấn chọn linh kiện, review schematic bo mạch và giải đáp thắc mắc debug trực tiếp.</span>
             </div>
           </div>
           <div class="author-actions">
-            <a href="/contact" class="btn btn-primary btn-sm">Liên hệ trao đổi trực tiếp</a>
+            <a href="/about" class="btn btn-primary btn-sm">Xem câu chuyện hành trình của tôi</a>
+            <a href={siteConfig.socials.zalo} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              Nhắn tin Zalo với Thầy Giang
+            </a>
             <a href={siteConfig.socials.youtube} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-              Kênh YouTube của Thầy
+              Kênh YouTube bài giảng
             </a>
           </div>
         </div>
@@ -345,13 +465,13 @@ const technicalDomains = [
     <div class="container">
       <div class="cta-banner">
         <div class="cta-content">
-          <h2 class="cta-title">Bạn Có Dự Án Cần Hiện Thực Hoặc Muốn Tư Vấn Khóa Học?</h2>
+          <h2 class="cta-title">Bạn Có Ý Tưởng Mạch Cần Hiện Thực Hoặc Muốn Tư Vấn Khóa Học?</h2>
           <p class="cta-desc">
-            Sẵn sàng hợp tác nghiên cứu phát triển thiết bị phần cứng, tư vấn kiến trúc nhúng hoặc đồng hành trong các chuyên đề đào tạo kỹ thuật.
+            Sẵn sàng hợp tác nghiên cứu phát triển thiết bị phần cứng, tư vấn kiến trúc nhúng hoặc đồng hành trong các chuyên đề đào tạo kỹ thuật thực chiến.
           </p>
         </div>
         <div class="cta-actions">
-          <a href="/contact" class="btn btn-primary">Liên hệ ngay hôm nay</a>
+          <a href="/contact" class="btn btn-primary">Liên hệ trực tiếp với Thầy Giang</a>
         </div>
       </div>
     </div>
@@ -434,11 +554,33 @@ const technicalDomains = [
     margin-bottom: 2.5rem;
   }
 
+  .btn-youtube-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.35);
+  }
+
+  .btn-youtube-action:hover {
+    background-color: rgba(239, 68, 68, 0.08);
+    border-color: #ef4444;
+    color: #dc2626;
+  }
+
   .hero-stats {
-    display: flex;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-subtle);
+  }
+
+  @media (max-width: 640px) {
+    .hero-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
   }
 
   .stat-item {
@@ -447,15 +589,18 @@ const technicalDomains = [
   }
 
   .stat-number {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     font-weight: 800;
     color: var(--color-navy);
     font-family: var(--font-mono);
+    line-height: 1.2;
   }
 
   .stat-label {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--text-subtle);
+    line-height: 1.35;
+    margin-top: 0.2rem;
   }
 
   /* Hero Visual Terminal */
@@ -744,5 +889,223 @@ const technicalDomains = [
     color: #94a3b8;
     font-size: 0.98rem;
     max-width: 600px;
+  }
+
+  /* Technology Ecosystem Trust Strip */
+  .trust-bar {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.1rem 0;
+  }
+
+  .trust-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-subtle);
+  }
+
+  .trust-badges {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    font-family: var(--font-mono);
+  }
+
+  .trust-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+  }
+
+  /* Testimonial Cards */
+  .testimonials-section {
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .testimonial-card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+  }
+
+  .testimonial-stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .star {
+    color: #f59e0b;
+    font-size: 1.1rem;
+  }
+
+  .testimonial-quote {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .author-avatar-chip {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+  }
+
+  .author-avatar-chip.accent {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  }
+
+  .author-avatar-chip.emerald {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .author-meta {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-meta-name {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--color-navy);
+  }
+
+  .author-meta-role {
+    font-size: 0.78rem;
+    color: var(--text-subtle);
+  }
+
+  /* YouTube Community Banner */
+  .yt-banner-section {
+    padding: 3.5rem 0;
+  }
+
+  .yt-banner {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1e38 100%);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    box-shadow: var(--shadow-lg), 0 0 25px rgba(239, 68, 68, 0.08);
+  }
+
+  @media (max-width: 900px) {
+    .yt-banner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .yt-banner-badge {
+      margin: 0 auto;
+    }
+
+    .yt-banner-action {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .yt-banner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .yt-banner-title {
+    color: #ffffff;
+    font-size: 1.35rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .yt-banner-desc {
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    max-width: 650px;
+  }
+
+  .btn-youtube {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: #ef4444;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+  }
+
+  .btn-youtube:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
+    color: #ffffff;
   }
 </style>

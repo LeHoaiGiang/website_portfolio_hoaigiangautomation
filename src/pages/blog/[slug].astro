@@ -75,9 +75,10 @@ const formattedDate = data.date
         <!-- Author Byline -->
         <div class="author-byline">
           <img
-            src="/media/author-avatar.svg"
+            src="/media/author-portrait.webp"
             alt={data.author || 'Hoài Giang'}
             class="byline-avatar"
+            onerror="this.src='/media/author-portrait.jpg'"
           />
           <div class="byline-info">
             <span class="byline-name">{data.author || siteConfig.authorName}</span>
@@ -119,9 +120,10 @@ const formattedDate = data.date
         <div class="post-author-box">
           <div class="post-author-avatar-wrap">
             <img
-              src="/media/author-avatar.svg"
+              src="/media/author-portrait.webp"
               alt={siteConfig.authorName}
               class="post-author-avatar"
+              onerror="this.src='/media/author-portrait.jpg'"
             />
           </div>
           <div class="post-author-content">

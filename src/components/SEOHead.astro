@@ -11,8 +11,8 @@ export interface Props {
 
 const {
   title,
-  description = siteConfig.siteDescription,
-  image = '/media/og-image.svg',
+  description = siteConfig.siteDescription || siteConfig.tagline,
+  image = '/media/og-image.png',
   canonicalUrl = Astro.url.href,
   type = 'website',
 } = Astro.props;
@@ -43,6 +43,9 @@ const pageTitle = title
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
 <meta property="og:site_name" content={siteConfig.brandName} />
 
 <!-- Twitter / X -->
@@ -52,6 +55,7 @@ const pageTitle = title
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-<!-- Preload Google Fonts -->
+<!-- Google Fonts (Optimized without render-blocking @import) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" />

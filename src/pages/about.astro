@@ -8,14 +8,14 @@ const aboutEntries = await getCollection('about');
 const aboutData = aboutEntries[0];
 
 // Fallback if not yet created
-const title = aboutData?.data.title || 'Về Chúng Tôi — Hoài Giang Automation';
+const title = aboutData?.data.title || 'Về Tôi — Thầy Giang Tự Động Hóa';
 const description =
   aboutData?.data.description ||
-  'Đội ngũ kỹ sư giàu kinh nghiệm thực tế trong điện tử, PLC, mạch điện điều khiển và hệ thống giám sát dữ liệu.';
+  'Hành trình cá nhân của Thầy Giang (Hoài Giang) — Kỹ sư Embedded Systems, PCB & Tự động hóa công nghiệp.';
 const subtitle =
   aboutData?.data.subtitle ||
-  'Đội ngũ kỹ thuật giàu kinh nghiệm thực tế đa lĩnh vực trong điện tử, PLC, mạch điện điều khiển và hệ thống giám sát dữ liệu công nghiệp.';
-const cover = aboutData?.data.cover || '/media/team-lab.svg';
+  'Kỹ sư Thiết kế Hệ thống Nhúng & Giảng viên Đào tạo Kỹ thuật Thực chiến với hơn 8 năm kinh nghiệm chế tạo và vận hành thiết bị thực tế.';
+const cover = aboutData?.data.cover || '/media/team-lab.webp';
 const stats = aboutData?.data.stats || [];
 
 // Render markdown body
@@ -26,11 +26,11 @@ if (aboutData) {
 }
 ---
 
-<BaseLayout title="Về chúng tôi" description={description} image={cover}>
+<BaseLayout title="Về tôi" description={description} image={cover}>
   <!-- Page Header -->
   <div class="about-page-header">
     <div class="container">
-      <span class="section-tag">Đội ngũ &amp; Năng lực</span>
+      <span class="section-tag">Hành trình &amp; Năng lực</span>
       <h1 class="page-title">{title}</h1>
       <p class="page-subtitle">{subtitle}</p>
     </div>
@@ -52,15 +52,35 @@ if (aboutData) {
     </section>
   )}
 
-  <!-- Featured Banner Image -->
+  <!-- Featured Visual Grid (Real Portrait + Lab Workbench) -->
   <div class="container about-cover-container">
-    <div class="about-cover-card">
-      <img
-        src={cover}
-        alt="Hoài Giang Automation Lab & Team"
-        class="about-cover-img"
-        onerror="this.src='/media/team-lab.svg'"
-      />
+    <div class="about-hero-grid">
+      <div class="about-portrait-card">
+        <div class="portrait-img-wrap">
+          <img
+            src="/media/author-portrait.webp"
+            alt="Thầy Giang — Kỹ sư Embedded Systems & Tự động hóa"
+            class="about-portrait-img"
+            onerror="this.src='/media/author-portrait.jpg'"
+          />
+        </div>
+        <div class="portrait-meta-badge">
+          <span class="portrait-name">{siteConfig.authorName}</span>
+          <span class="portrait-title font-mono">{siteConfig.brandSubname}</span>
+          <span class="portrait-subtitle">Kỹ sư Nhúng &amp; Đào tạo</span>
+        </div>
+      </div>
+      <div class="about-cover-card">
+        <img
+          src={cover}
+          alt="Thầy Giang làm việc tại phòng Lab Điện tử & Tự động hóa"
+          class="about-cover-img"
+          onerror="this.src='/media/team-lab.jpg'"
+        />
+        <div class="cover-caption">
+          <span>Phòng Lab R&amp;D Phần Cứng &amp; Thực Hành Nhúng Thực Tế</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -78,9 +98,9 @@ if (aboutData) {
       <!-- Bottom Navigation / CTA Box -->
       <div class="about-bottom-cta">
         <div class="cta-text">
-          <h3>Bạn Cần Trao Đổi Về Giải Pháp Kỹ Thuật Hoặc Khóa Học?</h3>
+          <h3>Bạn Cần Trao Đổi Về Giải Pháp Kỹ Thuật Hoặc Tư Vấn Khóa Học?</h3>
           <p>
-            Đội ngũ Hoài Giang Automation luôn sẵn sàng lắng nghe, tư vấn và đồng hành hiện thực hóa dự án cùng bạn.
+            Tôi luôn sẵn sàng lắng nghe, tư vấn định hướng chuyên môn và đồng hành hiện thực hóa dự án thực tế cùng bạn.
           </p>
         </div>
         <div class="cta-buttons">
@@ -166,21 +186,97 @@ if (aboutData) {
     margin-top: 3rem;
   }
 
+  .about-hero-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+
+  @media (max-width: 860px) {
+    .about-hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .about-portrait-card {
+    background-color: #ffffff;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-md);
+  }
+
+  .portrait-img-wrap {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #0f172a;
+  }
+
+  .about-portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .portrait-meta-badge {
+    padding: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    text-align: center;
+  }
+
+  .portrait-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-navy);
+  }
+
+  .portrait-title {
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+
+  .portrait-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-subtle);
+    margin-top: 0.25rem;
+  }
+
   .about-cover-card {
     background-color: #0f172a;
     border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   .about-cover-img {
     width: 100%;
-    max-height: 480px;
-    object-fit: contain;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
     display: block;
-    margin: 0 auto;
     background-color: #090d16;
+  }
+
+  .cover-caption {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    color: #cbd5e1;
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .about-content-container {

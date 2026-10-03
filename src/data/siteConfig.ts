@@ -2,6 +2,7 @@ export interface SiteConfig {
   brandName: string;
   brandSubname: string;
   tagline: string;
+  siteDescription: string;
   authorName: string;
   authorTitle: string;
   authorBio: string;
@@ -27,10 +28,12 @@ export const siteConfig: SiteConfig = {
   brandName: 'Hoài Giang Automation',
   brandSubname: 'Thầy Giang Tự Động Hóa',
   tagline: 'Embedded Systems · IoT · FPGA · Automation',
+  siteDescription:
+    'Chuyên đào tạo thực chiến & thiết kế hệ thống nhúng STM32, ESP32, FPGA, bo mạch PCB và tự động hóa công nghiệp. Học thực hành chuyên sâu trên thiết bị lab thực tế.',
   authorName: 'Hoài Giang',
   authorTitle: 'Kỹ sư Thiết kế Hệ thống Nhúng & Tự động hóa',
   authorBio:
-    'Chuyên nghiên cứu, thiết kế và hiện thực các hệ thống điều khiển tự động, phần cứng nhúng STM32/ESP32, kiến trúc phần cứng FPGA/Verilog và giải pháp IoT công nghiệp.',
+    'Kỹ sư với 8+ năm kinh nghiệm thực chiến trong thiết kế bo mạch phần cứng, lập trình vi điều khiển STM32/ESP32, kiến trúc FPGA và hệ thống tự động hóa công nghiệp.',
   siteUrl: 'https://hoaigiangautomation.vercel.app',
   contact: {
     email: 'lehoaigiangg@gmail.com',
@@ -48,7 +51,7 @@ export const siteConfig: SiteConfig = {
   },
   navigation: [
     { label: 'Trang chủ', href: '/' },
-    { label: 'Về chúng tôi', href: '/about' },
+    { label: 'Về tôi', href: '/about' },
     { label: 'Dự án', href: '/projects' },
     { label: 'Bài viết', href: '/blog' },
     { label: 'Khóa học', href: '/courses' },
